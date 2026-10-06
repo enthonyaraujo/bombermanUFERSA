@@ -1,0 +1,39 @@
+{
+  "family": "bomberman-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::123456789012:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::123456789012:role/BombermanSqsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "bomberman-app",
+      "image": "123456789012.dkr.ecr.us-east-1.amazonaws.com/bomberman-game:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "3000" },
+        { "name": "AWS_REGION", "value": "us-east-1" },
+        { "name": "SQS_ACTIONS_QUEUE_URL", "value": "https://sqs.us-east-1.amazonaws.com/123456789012/bomberman-enthony-actions.fifo" },
+        { "name": "SQS_EVENTS_QUEUE_URL", "value": "https://sqs.us-east-1.amazonaws.com/123456789012/bomberman-enthony-events.fifo" },
+        { "name": "APP_PUBLIC_NAME", "value": "BOMBERMAN-ENTHONY.SEU-ALB-DNS.COM" },
+        { "name": "GROUP_MEMBERS", "value": "ENTHONY ARAUJO, DOUGLAS PATRICK, GUILHERME SILVA, GUILHERME GABRIEL" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/bomberman",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

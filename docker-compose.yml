@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:3.0
+    container_name: bomberman-localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs
+      - DEBUG=0
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_DEFAULT_REGION=us-east-1
+    volumes:
+      - "localstack_data:/var/lib/localstack"
+
+  init-sqs:
+    image: amazon/aws-cli:latest
+    container_name: bomberman-init-sqs
+    depends_on:
+      - localstack
+    entrypoint: /bin/sh
+    command: >
+      -c "
+      echo 'Aguardando LocalStack subir...';
+      sleep 3;
+      export AWS_ACCESS_KEY_ID=test;
+      export AWS_SECRET_ACCESS_KEY=test;
+      export AWS_DEFAULT_REGION=us-east-1;
+      echo 'Criando fila actions.fifo...';
+      aws --endpoint-url=http://localstack:4566 sqs create-queue \
+        --queue-name bomberman-actions.fifo \
+        --attributes FifoQueue=true,ContentBasedDeduplication=false;
+      echo 'Criando fila events.fifo...';
+      aws --endpoint-url=http://localstack:4566 sqs create-queue \
+        --queue-name bomberman-events.fifo \
+        --attributes FifoQueue=true,ContentBasedDeduplication=false;
+      echo 'Filas criadas com sucesso!';
+      aws --endpoint-url=http://localstack:4566 sqs list-queues --endpoint-url=http://localstack:4566;
+      "
+
+volumes:
+  localstack_data:
