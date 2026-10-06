@@ -9,7 +9,6 @@ RUN npm ci --only=production
 
 # Copia código fonte da aplicação
 COPY src/ ./src/
-COPY public/ ./src/public/
 
 # Variáveis padrão
 ENV PORT=3000
