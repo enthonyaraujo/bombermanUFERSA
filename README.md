@@ -256,21 +256,6 @@ docker push <ID_CONTA>.dkr.ecr.us-east-1.amazonaws.com/bomberman-ufersa:latest
 
 ---
 
-## Equipe de Desenvolvimento
-
-| Integrante | Responsabilidade |
-| :--- | :--- |
-| Enthony Araújo | Arquitetura de Nuvem, Integração AWS SQS/ECS e Frontend |
-| Douglas Patrick | Lógica da Game Engine, Mecânicas de Combate e Colisões |
-| Guilherme Silva | Servidor WebSocket, Gerenciador de Salas e Mensageria |
-| Guilherme Gabriel | Interface Visual, Design System Sertão Pixel e Testes |
-
-- Disciplina: Sistemas Distribuídos
-- Instituição: Universidade Federal Rural do Semi-Árido (UFERSA)
-- Semestre Letivo: 2026.2
-
----
-
 ## Licença
 
 Este projeto é distribuído sob os termos da licença MIT. Consulte o arquivo [LICENSE](./LICENSE) para informações adicionais.
