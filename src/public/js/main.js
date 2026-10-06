@@ -147,14 +147,32 @@ export function showToast(title, message, type = 'warning') {
 // Carrega informações da API oficial (Identificador ECS e Equipe SD)
 async function loadServerInfo() {
   try {
+    // 1. Lê parâmetros da URL (ex: ?player=ENTHONY ou hostname bomberman-enthony)
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramPlayer = urlParams.get('player') || urlParams.get('nome');
+    if (paramPlayer) {
+      playerNameInput.value = paramPlayer.trim();
+      state.playerName = paramPlayer.trim();
+    } else {
+      const match = window.location.hostname.match(/^bomberman-([a-zA-Z0-9_-]+)/i);
+      if (match && match[1]) {
+        playerNameInput.value = match[1].toUpperCase();
+        state.playerName = match[1].toUpperCase();
+      }
+    }
+
     const res = await fetch('/api/info');
     const data = await res.json();
+    const publicIdentityEl = document.getElementById('public-identity');
+    const pageTitleEl = document.getElementById('page-title');
+    const teamMembersEl = document.getElementById('team-members-display');
+
     if (data.appPublicName) {
-      document.getElementById('public-identity').textContent = data.appPublicName;
-      document.getElementById('page-title').textContent = `${data.appPublicName} · BombermanUFERSA`;
+      if (publicIdentityEl) publicIdentityEl.textContent = data.appPublicName;
+      if (pageTitleEl) pageTitleEl.textContent = `${data.appPublicName} · BombermanUFERSA`;
     }
-    if (data.groupMembers && data.groupMembers.length > 0) {
-      document.getElementById('team-members-display').textContent = data.groupMembers.join(', ');
+    if (data.groupMembers && data.groupMembers.length > 0 && teamMembersEl) {
+      teamMembersEl.textContent = data.groupMembers.join(', ');
     }
   } catch (err) {
     console.warn('[Client] Não foi possível carregar /api/info:', err);
@@ -179,6 +197,19 @@ btnLogin.addEventListener('click', () => {
   const name = playerNameInput.value.trim() || 'Lampião.bot';
   state.playerName = name;
   lobbyPlayerDisplay.textContent = name;
+
+  // Atualiza a barra de endereço do navegador com o nome do jogador (critério de avaliação)
+  const url = new URL(window.location.href);
+  url.searchParams.set('player', name);
+  window.history.replaceState({ player: name }, '', url.toString());
+
+  // Atualiza dinamicamente o badge de domínio ECS se aplicável
+  const publicIdentityEl = document.getElementById('public-identity');
+  if (publicIdentityEl && publicIdentityEl.textContent.includes('.')) {
+    const domainPart = publicIdentityEl.textContent.substring(publicIdentityEl.textContent.indexOf('.'));
+    publicIdentityEl.textContent = `BOMBERMAN-${name.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()}${domainPart}`;
+    document.title = `${publicIdentityEl.textContent} · BombermanUFERSA`;
+  }
 
   // Transição de tela
   loginScreen.classList.add('hidden');

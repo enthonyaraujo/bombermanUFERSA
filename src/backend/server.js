@@ -85,14 +85,28 @@ app.use(express.json());
 
 // Endpoints da API para status e conformidade com critérios de avaliação
 app.get('/api/info', (req, res) => {
+  const host = req.headers.host || '';
+  let resolvedPublicName = config.appPublicName;
+
+  // Se a requisição veio através de um host específico no formato BOMBERMAN-<NOME>.<DOMINIO>
+  if (host && host.toLowerCase().includes('bomberman-')) {
+    resolvedPublicName = host.split(':')[0].toUpperCase();
+  }
+
   res.json({
-    appPublicName: config.appPublicName,
+    appPublicName: resolvedPublicName,
     groupMembers: config.groupMembers,
     region: config.aws.region,
     actionsQueue: config.sqs.actionsQueueUrl,
     eventsQueue: config.sqs.eventsQueueUrl,
     timestamp: new Date().toISOString()
   });
+});
+
+// Suporte à rota direta com o formato do critério de avaliação
+app.get('/bomberman-:name', (req, res) => {
+  const playerName = encodeURIComponent(req.params.name.toUpperCase());
+  res.redirect(`/?player=${playerName}`);
 });
 
 app.get('/api/health', (req, res) => {
