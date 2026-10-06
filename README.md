@@ -267,7 +267,7 @@ docker push <ID_CONTA>.dkr.ecr.us-east-1.amazonaws.com/bomberman-ufersa:latest
 
 - Disciplina: Sistemas Distribuídos
 - Instituição: Universidade Federal Rural do Semi-Árido (UFERSA)
-- Semestre Letivo: 2026.1
+- Semestre Letivo: 2026.2
 
 ---
 
