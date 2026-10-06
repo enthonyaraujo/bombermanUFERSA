@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">BombermanUFERSA · Sistemas Distribuídos</title>
+  <!-- Google Fonts: Press Start 2P (Títulos/Números Retrô) e Space Mono (Corpo/Labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- Cabeçalho Oficial: Conformidade Obrigatória com os Critérios de Avaliação -->
+    <header class="app-header">
+      <div class="team-banner">
+        <strong>Equipe SD:</strong> <span id="team-members-display">ENTHONY ARAUJO, DOUGLAS PATRICK, GUILHERME SILVA, GUILHERME GABRIEL</span>
+      </div>
+      <div class="ping-badge">
+        <span class="status-indicator online"></span>
+        <span id="header-ping">Conectado · 42 ms</span>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         TELA 1: LOGIN (DIGITAR APELIDO)
+         ==================================================================== -->
+    <section id="login-screen" class="card-screen">
+      <div class="lobby-form">
+        <div class="ribbon-header">
+          <h1 class="logo-title">BombermanUFERSA</h1>
+          <p class="logo-subtitle">ARENA DO SERTÃO · MULTIPLAYER DISTRIBUÍDO</p>
+        </div>
+
+        <div class="input-block">
+          <label for="player-name">APELIDO DO JOGADOR:</label>
+          <input type="text" id="player-name" placeholder="Digite seu apelido" maxlength="15" value="Lampião.bot">
+          <span class="input-hint">Máximo de 15 caracteres alfanuméricos.</span>
+        </div>
+
+        <button id="btn-login" class="btn-pixel btn-terracotta btn-lg">ENTRAR NO LOBBY</button>
+
+        <div class="lobby-quick-footer">
+          <div class="quick-status">
+            <span class="status-dot green"></span>
+            <span>SERVIDOR ONLINE</span>
+          </div>
+          <div class="quick-version">VERSÃO 1.0.4-RETRO</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 2: LOBBY PRINCIPAL (LISTA DE SALAS EM TEMPO REAL)
+         ==================================================================== -->
+    <section id="lobby-screen" class="card-screen hidden">
+      <!-- Cabeçalho do Lobby -->
+      <div class="lobby-panel-header">
+        <div class="panel-header-left">
+          <span class="panel-title">LOBBY PRINCIPAL // SALAS ATIVAS</span>
+          <span class="panel-player">JOGADOR: <strong id="lobby-player-display">---</strong></span>
+        </div>
+        <div class="panel-header-right">
+          <span class="badge-status-online">
+            <span class="status-dot green"></span> SINCRONIZADO
+          </span>
+        </div>
+      </div>
+
+      <!-- Barra de Controle e Ações do Lobby -->
+      <div class="lobby-action-bar">
+        <div class="lobby-action-left">
+          <button id="btn-open-create-room" class="btn-pixel btn-cactus">
+            <span>+</span> CRIAR SALA
+          </button>
+          <button id="btn-refresh-rooms" class="btn-pixel btn-secondary">
+            <span>⟳</span> ATUALIZAR LISTA
+          </button>
+        </div>
+
+        <!-- Entrada Rápida por Código Among Us (ex: K7QM) -->
+        <div class="quick-code-box">
+          <input type="text" id="quick-code-input" placeholder="CÓDIGO (EX: K7QM)" maxlength="4">
+          <button id="btn-quick-join" class="btn-pixel btn-terracotta">ENTRAR</button>
+        </div>
+      </div>
+
+      <!-- Container das Salas Listadas em Tempo Real -->
+      <div class="rooms-container">
+        <div id="rooms-list" class="rooms-list">
+          <!-- Renderizado dinamicamente via main.js -->
+        </div>
+      </div>
+
+      <div class="lobby-footer-note">
+        Salas atualizadas instantaneamente em tempo real · Escolha uma sala ou crie uma personalizada.
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 3: SALA DE ESPERA (WAITING ROOM COM 4 SLOTS)
+         ==================================================================== -->
+    <section id="waiting-screen" class="card-screen hidden">
+      <div class="waiting-header">
+        <div>
+          <h2 class="waiting-title">
+            SALA: <span id="current-room-code" class="highlight-code">---</span>
+            <span id="current-room-privacy" class="room-privacy-badge">🌐 PÚBLICA</span>
+          </h2>
+          <p class="waiting-subtitle" id="current-room-name-subtitle">CAMPUS CENTRAL · UFERSA</p>
+        </div>
+        <div class="waiting-badges">
+          <span class="badge-mode">BATALHA CLÁSSICA</span>
+          <span class="badge-slots" id="waiting-player-count">0 / 4 JOGADORES</span>
+        </div>
+      </div>
+
+      <div class="instruction-box">
+        Aguardando de 2 a 4 jogadores confirmarem "Pronto" para iniciar o combate:
+      </div>
+
+      <!-- Grade de 4 Slots de Jogadores com Avatares Pixel Art -->
+      <div id="players-lobby-list" class="players-grid">
+        <!-- Renderizado dinamicamente via main.js -->
+      </div>
+
+      <!-- Barra de Ações da Sala -->
+      <div class="waiting-actions">
+        <button id="btn-toggle-ready" class="btn-pixel btn-cactus btn-lg">PRONTO</button>
+        <button id="btn-leave-room" class="btn-pixel btn-night btn-lg">Sair da Sala</button>
+      </div>
+
+      <div class="controls-hint-bar">
+        WASD / Setas: mover &nbsp;·&nbsp; Espaço: soltar bomba &nbsp;·&nbsp; 1 a 4: emotes rápidos
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TELA 4: ARENA DO JOGO
+         ==================================================================== -->
+    <section id="game-screen" class="hidden">
+      <!-- HUD Superior Slim Arcade -->
+      <div class="game-hud">
+        <div class="hud-item room-info">
+          SALA: <strong id="hud-room-id">---</strong>
+        </div>
+
+        <div class="hud-item timer-info">
+          TEMPO: <strong id="hud-timer">03:00</strong>
+          <span id="sudden-death-warning" class="badge-alert hidden">⚡ MORTE SÚBITA!</span>
+        </div>
+
+        <div class="hud-item stats-info">
+          BOMBAS: <span id="hud-bombs">1/1</span> &nbsp;|&nbsp;
+          ALCANCE: <span id="hud-range">2</span> &nbsp;|&nbsp;
+          VEL: <span id="hud-speed">1x</span>
+        </div>
+
+        <div class="hud-item hud-ping">
+          <span class="status-dot green"></span>
+          <span id="game-ping">42 ms</span>
+        </div>
+      </div>
+
+      <!-- Barra de Chips dos Jogadores (Avatares + Sobrevivência) -->
+      <div id="hud-players-status" class="hud-players-bar">
+        <!-- Renderizado dinamicamente via main.js -->
+      </div>
+
+      <!-- Canvas Centralizado da Arena Sertaneja -->
+      <div class="canvas-wrapper">
+        <canvas id="game-canvas" width="816" height="624"></canvas>
+      </div>
+
+      <!-- Guia de Controles Inferior -->
+      <div class="controls-guide">
+        <div class="control-key"><span>WASD</span> ou <span>SETAS</span>: Mover</div>
+        <div class="control-key"><span>ESPAÇO</span>: Soltar Bomba</div>
+        <div class="control-key emote-keys">
+          Emotes: <span>1</span> 😎 &nbsp; <span>2</span> 💣 &nbsp; <span>3</span> 😭 &nbsp; <span>4</span> 🔥
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         MODAL 1: CRIAR NOVA SALA (MINI TELA CENTRALIZADA)
+         ==================================================================== -->
+    <div id="modal-create-room" class="modal-overlay hidden">
+      <div class="modal-mini-card">
+        <div class="modal-ribbon">NOVA PARTIDA</div>
+        <h2 class="modal-title">CRIAR SALA</h2>
+
+        <form id="form-create-room" onsubmit="event.preventDefault();">
+          <div class="input-block">
+            <label for="new-room-name">NOME DA SALA:</label>
+            <input type="text" id="new-room-name" placeholder="Ex: Arena Caatinga" maxlength="24" value="Arena Sertão Central">
+          </div>
+
+          <div class="input-block">
+            <label for="new-room-code">CÓDIGO (AMONG US / JACKBOX):</label>
+            <div class="room-input-row">
+              <input type="text" id="new-room-code" placeholder="EX: K7QM" maxlength="4" class="code-styled-input">
+              <button type="button" id="btn-regenerate-code" class="btn-pixel btn-secondary" title="Gerar outro código">⟳</button>
+            </div>
+            <span class="input-hint">Código único de 4 letras para compartilhar com amigos.</span>
+          </div>
+
+          <!-- Seleção Pública / Privada -->
+          <div class="input-block">
+            <label>TIPO DE ACESSO:</label>
+            <div class="privacy-selector">
+              <label class="privacy-option">
+                <input type="radio" name="room-privacy" value="public" checked>
+                <span class="privacy-option-box">🌐 Pública</span>
+              </label>
+              <label class="privacy-option">
+                <input type="radio" name="room-privacy" value="private">
+                <span class="privacy-option-box">🔒 Privada (com senha)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Campo de Senha (Visível apenas se Privada) -->
+          <div id="password-field-container" class="input-block hidden">
+            <label for="new-room-password">SENHA DA SALA:</label>
+            <input type="password" id="new-room-password" placeholder="Digite uma senha" maxlength="16">
+            <span class="input-hint">Exigida para os jogadores entrarem na sala.</span>
+          </div>
+
+          <div class="modal-mini-actions">
+            <button type="button" id="btn-confirm-create-room" class="btn-pixel btn-cactus flex-1">CRIAR E ENTRAR</button>
+            <button type="button" id="btn-close-create-room" class="btn-pixel btn-night">CANCELAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         MODAL 2: SENHA DA SALA PRIVADA (MINI TELA CENTRALIZADA COM CADEADO)
+         ==================================================================== -->
+    <div id="modal-password" class="modal-overlay hidden">
+      <div class="modal-mini-card">
+        <div class="modal-lock-icon">🔒</div>
+        <h2 class="modal-title">SALA PRIVADA</h2>
+        <p class="modal-subtitle">
+          A sala <strong id="pwd-modal-room-code" class="highlight-code">K7QM</strong> é protegida por senha.
+        </p>
+
+        <form id="form-submit-password" onsubmit="event.preventDefault();">
+          <div class="input-block">
+            <label for="private-room-password">DIGITE A SENHA:</label>
+            <input type="password" id="private-room-password" placeholder="Digite a senha da sala" maxlength="20">
+            <div id="pwd-error-msg" class="password-error hidden">❌ Senha incorreta! Tente novamente.</div>
+          </div>
+
+          <div class="modal-mini-actions">
+            <button type="button" id="btn-submit-password" class="btn-pixel btn-terracotta flex-1">CONFIRMAR E ENTRAR</button>
+            <button type="button" id="btn-cancel-password" class="btn-pixel btn-night">CANCELAR</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         MODAL 3: FIM DE JOGO COM PÓDIO 16-BIT
+         ==================================================================== -->
+    <div id="game-over-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-ribbon">FIM DE PARTIDA</div>
+        <h2 id="winner-title" class="winner-title">VITÓRIA!</h2>
+        <p id="winner-desc" class="winner-desc">O jogador Fulano venceu a partida!</p>
+
+        <!-- Componente de Pódio 1º a 4º Lugar -->
+        <div id="podium-container" class="podium-wrapper">
+          <!-- Gerado dinamicamente via main.js -->
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-play-again" class="btn-pixel btn-terracotta">Jogar Novamente</button>
+          <button id="btn-back-lobby" class="btn-pixel btn-cactus">Voltar ao Lobby</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICAÇÕES TOAST FLUTUANTES -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Rodapé Oficial -->
+    <footer class="app-footer">
+      <div>Sistemas Distribuídos - UFERSA &nbsp;·&nbsp; © 2026 ENTHONY ARAUJO</div>
+      <div class="footer-links">
+        <span>AWS ECS + SQS FIFO</span>
+        <span>LOBBY EM TEMPO REAL</span>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

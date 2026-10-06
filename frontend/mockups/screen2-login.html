@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BombermanUFERSA - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary": "#5e1700",
+            "inverse-surface": "#dbe1ff",
+            "outline": "#a58b84",
+            "on-tertiary-container": "#4f3e00",
+            "background": "#011038",
+            "on-background": "#dbe1ff",
+            "secondary": "#94d69f",
+            "on-tertiary": "#3d2f00",
+            "error-container": "#93000a",
+            "tertiary": "#edc22f",
+            "surface-variant": "#25335b",
+            "surface-dim": "#011038",
+            "on-tertiary-fixed": "#241a00",
+            "inverse-on-surface": "#212e57",
+            "inverse-primary": "#9f4021",
+            "primary-fixed-dim": "#ffb59e",
+            "outline-variant": "#56423c",
+            "on-primary-fixed": "#3a0b00",
+            "surface-bright": "#2a3760",
+            "secondary-fixed": "#aff2b9",
+            "on-secondary": "#003917",
+            "secondary-container": "#0f5228",
+            "on-surface-variant": "#ddc0b8",
+            "tertiary-fixed-dim": "#edc22e",
+            "primary-fixed": "#ffdbd0",
+            "on-tertiary-fixed-variant": "#574500",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#83c48e",
+            "on-error-container": "#ffdad6",
+            "on-primary-fixed-variant": "#802a0b",
+            "surface-container-highest": "#25335b",
+            "primary-container": "#e0714d",
+            "on-error": "#690005",
+            "tertiary-fixed": "#ffe089",
+            "surface-container-low": "#091941",
+            "surface": "#011038",
+            "on-surface": "#dbe1ff",
+            "surface-tint": "#ffb59e",
+            "surface-container": "#0e1d45",
+            "tertiary-container": "#d0a706",
+            "surface-container-high": "#1a2850",
+            "primary": "#ffb59e",
+            "on-secondary-fixed-variant": "#0f5228",
+            "on-secondary-fixed": "#00210b",
+            "surface-container-lowest": "#000b2e",
+            "secondary-fixed-dim": "#94d69f",
+            "on-primary-container": "#521300"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "space-sm": "0.5rem",
+            "margin-mobile": "0.75rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "gutter-mobile": "0.5rem",
+            "gutter": "1rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Space Mono"],
+            "headline-sm": ["Space Mono"],
+            "headline-md": ["Space Mono"],
+            "label-md": ["Space Mono"],
+            "display-arcade": ["Space Mono"],
+            "body-md": ["Space Mono"],
+            "body-lg": ["Space Mono"],
+            "label-sm": ["Space Mono"],
+            "headline-lg": ["Space Mono"],
+            "stat-counter": ["Space Mono"],
+            "body-sm": ["Space Mono"]
+          },
+          "fontSize": {
+            "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-md": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "display-arcade": ["32px", { "lineHeight": "40px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-md": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "body-lg": ["14px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "label-sm": ["9px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "stat-counter": ["20px", { "lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "body-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .pixel-border {
+      box-shadow: 4px 4px 0px 0px #3B2A20;
+      border: 3px solid #3B2A20;
+    }
+    .pixel-border-sm {
+      box-shadow: 2px 2px 0px 0px #3B2A20;
+      border: 2px solid #3B2A20;
+    }
+    .pixel-button {
+      box-shadow: 4px 4px 0px 0px #3B2A20;
+      border: 3px solid #3B2A20;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .pixel-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0px 0px #3B2A20;
+    }
+    .pixel-input {
+      box-shadow: inset 3px 3px 0px #0F172A;
+      border: 3px solid #3B2A20;
+    }
+    .retro-grid {
+      background-image: linear-gradient(to right, rgba(59, 42, 32, 0.15) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(59, 42, 32, 0.15) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+  </style>
+</head>
+<body class="bg-[#1D2B53] text-[#dbe1ff] font-['Space_Mono'] min-h-screen flex flex-col justify-between retro-grid select-none overflow-x-hidden">
+<!-- Top Navigation / Header -->
+<header class="bg-[#000b2e] flex justify-between items-center w-full px-space-md py-space-xs max-w-full shadow-[0_4px_0_0_#000b2e]">
+<div class="text-[#edc22f] font-headline-md tracking-widest uppercase">
+      CAATINGA BOMBER '94
+    </div>
+<div class="flex items-center space-x-space-md">
+<div class="flex items-center text-[#94d69f] font-label-md">
+<span class="material-symbols-outlined text-sm mr-1">wifi</span>
+<span>SERVIDOR ONLINE</span>
+</div>
+<div class="flex items-center text-[#a58b84] font-label-md">
+<span class="material-symbols-outlined text-sm mr-1">help</span>
+<span>AJUDA</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex items-center justify-center p-space-md">
+<div class="w-full max-w-xl bg-[#0e1d45] pixel-border p-space-xl relative">
+<!-- Inner decorative etched line -->
+<div class="absolute inset-1 border border-[#E8C987] pointer-events-none opacity-40"></div>
+<!-- Card Header Ribbon -->
+<div class="bg-[#C65D3B] text-[#E8C987] py-2 px-space-md pixel-border-sm mb-space-xl text-center">
+<h1 class="text-headline-lg font-headline-lg tracking-wider uppercase">BombermanUFERSA</h1>
+<p class="text-label-md text-[#FFD23F] mt-1 tracking-widest uppercase">ARENA DO SERTÃO - MULTIPLAYER</p>
+</div>
+<!-- Login Form -->
+<form class="space-y-space-lg relative z-10" onsubmit="event.preventDefault();">
+<div class="space-y-space-xs">
+<label class="block text-label-lg text-[#E8C987] uppercase tracking-wider">
+            APELIDO DO JOGADOR:
+          </label>
+<div class="relative">
+<input class="w-full bg-[#1D2B53] text-[#E8C987] placeholder-[#a58b84] px-space-md py-3 pixel-input font-['Space_Mono'] text-headline-sm focus:outline-none focus:ring-0 focus:border-[#FFD23F]" maxlength="16" placeholder="Digite seu apelido" type="text"/>
+</div>
+<p class="text-label-sm text-[#a58b84] mt-1">Máximo de 16 caracteres alfanuméricos.</p>
+</div>
+<div class="pt-space-sm">
+<button class="w-full bg-[#C65D3B] text-[#E8C987] py-4 text-headline-md font-headline-md tracking-widest uppercase pixel-button hover:bg-[#FFD23F] hover:text-[#3B2A20] text-center cursor-pointer" type="submit">
+            ENTRAR NA ARENA
+          </button>
+</div>
+</form>
+<!-- Quick Room Status Widget -->
+<div class="mt-space-xl pt-space-md border-t-2 border-[#3B2A20] flex justify-between items-center text-label-md text-[#a58b84]">
+<div class="flex items-center space-x-2">
+<span class="w-2.5 h-2.5 bg-[#94d69f] inline-block"></span>
+<span>JOGADORES ONLINE: 42</span>
+</div>
+<div>
+<span>VERSÃO 1.0.4-RETRO</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#000b2e] border-t-2 border-[#25335b] flex justify-between items-center w-full px-space-md py-space-xs text-center text-label-sm text-[#a58b84]">
+<div>© 1994 CAATINGA PIXEL WORKS - TODOS OS DIREITOS RESERVADOS</div>
+<div class="flex space-x-space-md">
+<span>CONTROLES: TECLADO</span>
+<span>PING: 24MS</span>
+<span>UFERSA CBT</span>
+</div>
+</footer>
+</body></html>

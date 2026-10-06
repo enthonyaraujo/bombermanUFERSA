@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CAATINGA BOMBER '94 - Tela de Jogo</title>
+<!-- Google Fonts: Space Mono & Press Start 2P -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#d0a706",
+            "on-surface-variant": "#ddc0b8",
+            "on-secondary": "#003917",
+            "on-tertiary": "#3d2f00",
+            "error": "#ffb4ab",
+            "secondary-fixed-dim": "#94d69f",
+            "surface-container-highest": "#25335b",
+            "on-primary": "#5e1700",
+            "surface-container-low": "#091941",
+            "inverse-on-surface": "#212e57",
+            "surface-container-lowest": "#000b2e",
+            "surface-tint": "#ffb59e",
+            "surface-container-high": "#1a2850",
+            "on-error": "#690005",
+            "inverse-primary": "#9f4021",
+            "tertiary-fixed-dim": "#edc22e",
+            "primary-fixed": "#ffdbd0",
+            "on-primary-fixed": "#3a0b00",
+            "on-secondary-fixed": "#00210b",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-container": "#4f3e00",
+            "on-background": "#dbe1ff",
+            "on-tertiary-fixed-variant": "#574500",
+            "surface-bright": "#2a3760",
+            "primary": "#ffb59e",
+            "background": "#011038",
+            "outline": "#a58b84",
+            "inverse-surface": "#dbe1ff",
+            "primary-fixed-dim": "#ffb59e",
+            "surface-variant": "#25335b",
+            "on-secondary-container": "#83c48e",
+            "tertiary": "#edc22f",
+            "surface": "#011038",
+            "outline-variant": "#56423c",
+            "on-primary-fixed-variant": "#802a0b",
+            "surface-dim": "#011038",
+            "on-surface": "#dbe1ff",
+            "secondary": "#94d69f",
+            "tertiary-fixed": "#ffe089",
+            "secondary-fixed": "#aff2b9",
+            "primary-container": "#e0714d",
+            "on-tertiary-fixed": "#241a00",
+            "on-secondary-fixed-variant": "#0f5228",
+            "error-container": "#93000a",
+            "surface-container": "#0e1d45",
+            "secondary-container": "#0f5228",
+            "on-primary-container": "#521300",
+            /* Dedicated 16-bit retro arcade Caatinga palette */
+            "retro-sand": "#E8C987",
+            "retro-sand-dark": "#C8A663",
+            "retro-terracotta": "#C65D3B",
+            "retro-terracotta-dark": "#973B1E",
+            "retro-cactus": "#3F7D4E",
+            "retro-cactus-dark": "#2E5C39",
+            "retro-brown": "#3B2A20",
+            "retro-blue": "#1D2B53",
+            "retro-yellow": "#FFD23F",
+            "retro-cream": "#FFFDF5"
+          },
+          "fontFamily": {
+            "headline-md": ["Space Mono"],
+            "display-arcade": ["'Press Start 2P'", "monospace"],
+            "body-sm": ["Space Mono"],
+            "body-lg": ["Space Mono"],
+            "stat-counter": ["'Press Start 2P'", "monospace"],
+            "label-sm": ["Space Mono"],
+            "body-md": ["Space Mono"],
+            "headline-lg": ["Space Mono"],
+            "label-lg": ["Space Mono"],
+            "label-md": ["Space Mono"],
+            "headline-sm": ["Space Mono"]
+          },
+          "fontSize": {
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "display-arcade": ["18px", { "lineHeight": "26px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "body-lg": ["14px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "stat-counter": ["16px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "label-sm": ["9px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "body-md": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "label-md": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* 16-bit strict pixel rendering and crisp bounds */
+    * {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      user-select: none;
+    }
+    
+    .pixel-box-shadow {
+      box-shadow: 4px 4px 0px 0px #000b2e;
+    }
+    .pixel-border-panel {
+      border: 3px solid #3B2A20;
+      outline: 1px solid #E8C987;
+      outline-offset: -3px;
+    }
+    .pixel-border-arena {
+      border: 6px solid #3B2A20;
+      box-shadow: 6px 6px 0px 0px #000b2e;
+    }
+
+    /* Keyframes for authentic 16-bit arcade animation steps */
+    @keyframes fuseBurn {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15) translate(-1px, -1px); }
+    }
+    .animate-fuse {
+      animation: fuseBurn 0.25s infinite steps(2);
+    }
+
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.05); filter: brightness(1.2); }
+    }
+    .animate-flame {
+      animation: flameFlicker 0.2s infinite steps(2);
+    }
+
+    @keyframes bombPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(0.94); }
+    }
+    .animate-bomb {
+      animation: bombPulse 0.4s infinite steps(2);
+    }
+
+    /* CRT scanline overlay effect */
+    .crt-scanlines {
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.28) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col justify-between overflow-x-hidden relative font-body-sm">
+<div class="crt-scanlines fixed inset-0 z-50 pointer-events-none opacity-40"></div>
+<!-- ================= TOP APP BAR (ANCHOR COMPONENT) ================= -->
+<header class="bg-surface-container border-b-4 border-surface-container-lowest shadow-[0_4px_0_0_#000b2e] z-40 relative">
+<div class="flex justify-between items-center w-full px-space-md py-space-xs max-w-full">
+<!-- Title & Branding -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-retro-terracotta border-2 border-retro-brown flex items-center justify-center shadow-[2px_2px_0_0_#000b2e]">
+<span class="material-symbols-outlined text-retro-yellow text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md text-tertiary uppercase tracking-widest leading-none">CAATINGA BOMBER '94</span>
+<span class="text-label-sm font-label-sm text-secondary tracking-widest mt-1">ARENA DO SERTÃO • 16-BIT MULTIPLAYER</span>
+</div>
+</div>
+<!-- Navigation tabs: EXACT JSON Anchor execution with ARENA active -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="border-b-2 border-tertiary text-tertiary font-headline-sm pb-1 active:translate-x-1 active:translate-y-1 duration-0" href="#">ARENA</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none active:translate-x-1 active:translate-y-1 duration-0" href="#">LOBBY</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none active:translate-x-1 active:translate-y-1 duration-0" href="#">LEADERBOARD</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none active:translate-x-1 active:translate-y-1 duration-0" href="#">SETTINGS</a>
+</nav>
+<!-- Trailing Action Icons & Explorer Avatar -->
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 bg-surface-container-lowest px-2 py-1 border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="wifi">wifi</span>
+<span class="text-label-sm font-label-sm text-secondary">42ms</span>
+<span class="text-label-sm font-label-sm text-outline">|</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">RECIFE-01</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-7 h-7 bg-surface-container-high border-2 border-surface-container-lowest flex items-center justify-center text-on-surface hover:text-tertiary active:translate-x-0.5 active:translate-y-0.5" title="Volume">
+<span class="material-symbols-outlined text-sm" data-icon="volume_up">volume_up</span>
+</button>
+<button class="w-7 h-7 bg-surface-container-high border-2 border-surface-container-lowest flex items-center justify-center text-on-surface hover:text-tertiary active:translate-x-0.5 active:translate-y-0.5" title="Ajuda">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+</button>
+</div>
+<!-- Player 1 Pixel Avatar -->
+<div class="flex items-center gap-2 pl-2 border-l-2 border-surface-container-highest">
+<div class="w-8 h-8 bg-surface-container-low border-2 border-tertiary p-0.5 shadow-[2px_2px_0_0_#000b2e]">
+<svg alt="Player 1 Blue Explorer Pixel Avatar" class="w-full h-full" viewbox="0 0 16 16">
+<!-- Pixel Art P1 Face (Blue Explorer Goggles) -->
+<rect fill="#3B2A20" height="3" width="10" x="3" y="1"></rect>
+<rect fill="#E8C987" height="2" width="12" x="2" y="3"></rect>
+<rect fill="#1D2B53" height="9" width="12" x="2" y="5"></rect>
+<!-- Goggles -->
+<rect fill="#94d69f" height="4" width="4" x="3" y="6"></rect>
+<rect fill="#94d69f" height="4" width="4" x="9" y="6"></rect>
+<rect fill="#000b2e" height="2" width="2" x="7" y="7"></rect>
+<rect fill="#FFFDF5" height="2" width="2" x="4" y="7"></rect>
+<rect fill="#FFFDF5" height="2" width="2" x="10" y="7"></rect>
+<!-- Scarf -->
+<rect fill="#C65D3B" height="2" width="8" x="4" y="12"></rect>
+</svg>
+</div>
+<div class="hidden lg:flex flex-col text-left">
+<span class="text-label-sm font-label-sm text-primary font-bold">P1 - LAMPIÃO</span>
+<span class="text-label-sm font-label-sm text-tertiary">450 PTS</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= SUB HUD / MULTIPLAYER STATUS TRAY ================= -->
+<section class="bg-surface-container-low border-b-2 border-surface-container-highest px-space-md py-2 w-full max-w-7xl mx-auto mt-2">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Round Info & Mode -->
+<div class="md:col-span-3 flex items-center gap-3">
+<div class="bg-retro-brown px-3 py-1.5 border-2 border-surface-container-lowest shadow-[2px_2px_0_0_#000b2e] flex flex-col">
+<span class="text-label-sm font-label-sm text-retro-sand">FASE DE COMBATE</span>
+<span class="font-display-arcade text-xs text-tertiary">RODADA 02/03</span>
+</div>
+<div class="hidden xl:flex flex-col">
+<span class="text-label-sm font-label-sm text-outline">BIOMA</span>
+<span class="text-label-md font-label-md text-secondary">SERRADO SECO</span>
+</div>
+</div>
+<!-- Center Match Timer -->
+<div class="md:col-span-4 flex flex-col items-center justify-center bg-surface-container-lowest px-4 py-1.5 border-2 border-retro-brown shadow-[3px_3px_0_0_#000b2e]">
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-xs text-tertiary">timer</span>
+<span>TEMPO RESTANTE</span>
+</div>
+<div class="font-display-arcade text-2xl text-retro-yellow tracking-widest mt-0.5 animate-pulse">
+          01:37
+        </div>
+</div>
+<!-- Player Status Badges (4 Players Grid) -->
+<div class="md:col-span-5 grid grid-cols-2 sm:grid-cols-4 gap-2">
+<!-- P1 Azul -->
+<div class="bg-surface-container p-1 border-2 border-primary-container shadow-[2px_2px_0_0_#000b2e] flex flex-col">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-primary font-bold">P1 (AZUL)</span>
+<div class="flex text-tertiary scale-75 origin-right">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface truncate">Lampião.bot</span>
+<span class="font-display-arcade text-[10px] text-tertiary">450 P</span>
+</div>
+<!-- P2 Vermelho -->
+<div class="bg-surface-container p-1 border-2 border-outline-variant shadow-[2px_2px_0_0_#000b2e] flex flex-col">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-retro-terracotta font-bold">P2 (VERM)</span>
+<div class="flex text-retro-terracotta scale-75 origin-right">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs text-outline-variant" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface truncate">Asa Branca</span>
+<span class="font-display-arcade text-[10px] text-primary">320 P</span>
+</div>
+<!-- P3 Amarelo -->
+<div class="bg-surface-container p-1 border-2 border-outline-variant shadow-[2px_2px_0_0_#000b2e] flex flex-col">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-tertiary font-bold">P3 (AMAR)</span>
+<div class="flex text-tertiary scale-75 origin-right">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs text-outline-variant" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs text-outline-variant" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface truncate">Mandacaru</span>
+<span class="font-display-arcade text-[10px] text-tertiary">180 P</span>
+</div>
+<!-- P4 Verde -->
+<div class="bg-surface-container p-1 border-2 border-secondary-container shadow-[2px_2px_0_0_#000b2e] flex flex-col">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary font-bold">P4 (VERD)</span>
+<div class="flex text-secondary scale-75 origin-right">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface truncate">Juazeiro</span>
+<span class="font-display-arcade text-[10px] text-secondary">510 P</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= MAIN GAMEPLAY ARENA VIEWPORT ================= -->
+<main class="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 my-1">
+<div class="relative max-w-full overflow-auto">
+<!-- Outer Mud-Brick Fortress Border Frame -->
+<div class="bg-retro-brown p-3 pixel-border-arena relative">
+<!-- Regional Geometric Brick Pattern Trim -->
+<div class="absolute top-1 left-3 right-3 h-1 flex justify-between">
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+</div>
+<!-- 15x13 CLASSIC BOMBERMAN TILE GRID -->
+<!-- Tile dimensions: each tile is approx 42px x 42px on desktop -->
+<div class="grid grid-cols-15 grid-rows-13 gap-0 bg-retro-sand border-2 border-retro-brown shadow-inner" style="display: grid; grid-template-columns: repeat(15, minmax(28px, 44px)); grid-template-rows: repeat(13, minmax(28px, 44px));">
+<!-- Helper macro: 15 cols x 13 rows = 195 tiles.
+               Even col AND even row (0-indexed 1,3,5,7,9,11,13 in 15 cols, 1,3,5,7,9,11 in 13 rows) are Indestructible Mandacaru Cacti!
+               Other tiles are Sand ground, Destructible Clay Boxes, Active Bombs, Power-ups or Players.
+          -->
+<!-- ROW 0 (y=0) -->
+<!-- (0,0): P1 SPAWN / CURRENT POSITION -->
+<div class="relative bg-retro-sand flex items-center justify-center border-[0.5px] border-retro-sand-dark">
+<!-- P1 ROBOT EXPLORER (Azul) -->
+<div class="w-8 h-8 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<!-- Hat / Couro -->
+<rect fill="#E8C987" height="3" width="12" x="2" y="1"></rect>
+<rect fill="#3B2A20" height="2" width="8" x="4" y="0"></rect>
+<!-- Head / Body Blue -->
+<rect fill="#1D2B53" height="7" width="10" x="3" y="4"></rect>
+<!-- Goggles -->
+<rect fill="#aff2b9" height="3" width="3" x="4" y="5"></rect>
+<rect fill="#aff2b9" height="3" width="3" x="9" y="5"></rect>
+<rect fill="#FFFDF5" height="1" width="1" x="5" y="6"></rect>
+<rect fill="#FFFDF5" height="1" width="1" x="10" y="6"></rect>
+<!-- Feet -->
+<rect fill="#3B2A20" height="3" width="3" x="4" y="12"></rect>
+<rect fill="#3B2A20" height="3" width="3" x="9" y="12"></rect>
+</svg>
+<!-- Player Tag -->
+<span class="absolute -top-3 bg-retro-blue text-retro-yellow font-display-arcade text-[6px] px-0.5 border border-retro-brown">P1</span>
+</div>
+</div>
+<!-- (1,0): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (2,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<!-- Clay / Barro Crate texture & Nordestino Cross String -->
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (3,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (4,0): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (5,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (6,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (7,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (8,0): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (9,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (10,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (11,0): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (12,0): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center shadow-[1px_1px_0_0_#3B2A20]">
+<div class="w-full h-full border border-retro-terracotta-dark flex items-center justify-center">
+<span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span>
+</div>
+</div>
+<!-- (13,0): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (14,0): P2 SPAWN / RED EXPLORER (Top Right) -->
+<div class="relative bg-retro-sand flex items-center justify-center border-[0.5px] border-retro-sand-dark">
+<div class="w-8 h-8 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<rect fill="#E8C987" height="3" width="12" x="2" y="1"></rect>
+<rect fill="#3B2A20" height="2" width="8" x="4" y="0"></rect>
+<!-- Red Body -->
+<rect fill="#C65D3B" height="7" width="10" x="3" y="4"></rect>
+<!-- Dark Visor -->
+<rect fill="#000b2e" height="3" width="10" x="3" y="5"></rect>
+<rect fill="#FFD23F" height="1" width="6" x="5" y="6"></rect>
+<!-- Boots -->
+<rect fill="#3B2A20" height="3" width="3" x="4" y="12"></rect>
+<rect fill="#3B2A20" height="3" width="3" x="9" y="12"></rect>
+</svg>
+<span class="absolute -top-3 bg-retro-terracotta text-retro-yellow font-display-arcade text-[6px] px-0.5 border border-retro-brown">P2</span>
+</div>
+</div>
+<!-- ROW 1 (y=1) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (1,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown relative flex items-center justify-center">
+<!-- Mandacaru Cactus Pixel Art -->
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16">
+<rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect>
+<rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect>
+<rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect>
+<rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect>
+<rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect>
+<!-- Thorns -->
+<rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect>
+<rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect>
+<rect fill="#FFD23F" height="1" width="1" x="1" y="4"></rect>
+<rect fill="#FFD23F" height="1" width="1" x="14" y="6"></rect>
+<rect fill="#2E5C39" height="1" width="2" x="7" y="10"></rect>
+</svg>
+</div>
+<!-- (2,1): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (3,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (4,1): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (5,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (6,1): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (7,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (8,1): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (9,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (10,1): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (11,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (12,1): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown opacity-80">✕</span></div>
+<!-- INDESTRUCTIBLE MANDACARU CACTUS (13,1) -->
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center">
+<svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="3" x="2" y="3"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect><rect fill="#3F7D4E" height="3" width="3" x="11" y="5"></rect><rect fill="#FFD23F" height="1" width="1" x="5" y="4"></rect><rect fill="#FFD23F" height="1" width="1" x="10" y="4"></rect></svg>
+</div>
+<!-- (14,1): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 2 (y=2) -->
+<!-- (0,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (1,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (2,2): ACTIVE BOMB 1 (Near P1) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark relative flex items-center justify-center">
+<div class="w-8 h-8 relative flex items-center justify-center animate-bomb">
+<!-- Pixel Bomb Sprite -->
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<!-- Spark / Fuse -->
+<rect class="animate-fuse" fill="#FFD23F" height="3" width="3" x="9" y="1"></rect>
+<rect fill="#C65D3B" height="2" width="3" x="7" y="3"></rect>
+<rect fill="#3B2A20" height="2" width="4" x="6" y="4"></rect>
+<!-- Bomb Round Body -->
+<circle cx="8" cy="9" fill="#1D2B53" r="6"></circle>
+<!-- Shine Reflection -->
+<rect fill="#FFFDF5" height="2" width="2" x="5" y="6"></rect>
+</svg>
+</div>
+</div>
+<!-- (3,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (4,2): POWER-UP: EXTRA BOMB (+1 BOMBA) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark relative flex flex-col items-center justify-center">
+<div class="w-6 h-6 bg-surface-container-lowest border border-retro-yellow p-0.5 shadow-[1px_1px_0_0_#3B2A20] flex items-center justify-center">
+<svg class="w-4 h-4" viewbox="0 0 16 16">
+<circle cx="8" cy="9" fill="#FFD23F" r="5"></circle>
+<rect fill="#C65D3B" height="3" width="2" x="8" y="2"></rect>
+</svg>
+</div>
+<span class="text-[5px] font-display-arcade text-retro-brown bg-retro-yellow px-0.5 mt-0.5 border border-retro-brown leading-tight">+1 BOMBA</span>
+</div>
+<!-- (5,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (6,2): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (7,2): Destructible Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (8,2): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (9,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (10,2): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (11,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (12,2): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (13,2): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- (14,2): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 3 (y=3) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect><rect fill="#3F7D4E" height="3" width="4" x="2" y="6"></rect><rect fill="#3F7D4E" height="3" width="4" x="10" y="8"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 4 (y=4) -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (6,4): EXPLOSION NORTH ARM (Top branch of cross-explosion) -->
+<div class="bg-retro-terracotta relative border border-retro-yellow flex items-center justify-center animate-flame">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<rect fill="#FFD23F" height="16" width="8" x="4" y="0"></rect>
+<rect fill="#FFFDF5" height="12" width="4" x="6" y="2"></rect>
+<rect fill="#C65D3B" height="8" width="2" x="2" y="4"></rect>
+<rect fill="#C65D3B" height="8" width="2" x="12" y="4"></rect>
+</svg>
+</div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (10,4): POWER-UP: VELOCIDADE (Cabaça / Bota) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark relative flex flex-col items-center justify-center">
+<div class="w-6 h-6 bg-surface-container-lowest border border-secondary p-0.5 shadow-[1px_1px_0_0_#3B2A20] flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-secondary">sprint</span>
+</div>
+<span class="text-[5px] font-display-arcade text-retro-brown bg-secondary px-0.5 mt-0.5 border border-retro-brown leading-tight">+VELOCIDADE</span>
+</div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- ROW 5 (y=5): DRAMATIC CROSS EXPLOSION CENTER (6,5) and HORIZONTAL ARMS (5,5), (7,5) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<!-- (4,5): EXPLOSION WEST FAR END -->
+<div class="bg-retro-terracotta border border-retro-yellow flex items-center justify-center animate-flame">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<polygon fill="#FFD23F" points="16,2 0,8 16,14"></polygon>
+<polygon fill="#FFFDF5" points="16,5 4,8 16,11"></polygon>
+</svg>
+</div>
+<!-- (5,5): EXPLOSION WEST ARM -->
+<div class="bg-retro-terracotta border border-retro-yellow flex items-center justify-center animate-flame">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<rect fill="#FFD23F" height="10" width="16" x="0" y="3"></rect>
+<rect fill="#FFFDF5" height="6" width="16" x="0" y="5"></rect>
+<rect fill="#C65D3B" height="2" width="8" x="4" y="1"></rect>
+<rect fill="#C65D3B" height="2" width="8" x="4" y="13"></rect>
+</svg>
+</div>
+<!-- (6,5): EXPLOSION EPICENTER CORE -->
+<div class="bg-retro-yellow relative border-2 border-white flex items-center justify-center animate-flame z-20 shadow-[0_0_12px_#FFD23F]">
+<svg class="w-full h-full scale-110" viewbox="0 0 16 16">
+<rect fill="#FFD23F" height="12" width="12" x="2" y="2"></rect>
+<rect fill="#FFFDF5" height="8" width="8" x="4" y="4"></rect>
+<rect fill="#C65D3B" height="4" width="4" x="6" y="6"></rect>
+<rect fill="#FFD23F" height="4" width="3" x="0" y="6"></rect>
+<rect fill="#FFD23F" height="4" width="3" x="13" y="6"></rect>
+<rect fill="#FFD23F" height="3" width="4" x="6" y="0"></rect>
+<rect fill="#FFD23F" height="3" width="4" x="6" y="13"></rect>
+</svg>
+</div>
+<!-- (7,5): EXPLOSION EAST ARM -->
+<div class="bg-retro-terracotta border border-retro-yellow flex items-center justify-center animate-flame">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<rect fill="#FFD23F" height="10" width="16" x="0" y="3"></rect>
+<rect fill="#FFFDF5" height="6" width="16" x="0" y="5"></rect>
+<rect fill="#C65D3B" height="2" width="8" x="4" y="1"></rect>
+<rect fill="#C65D3B" height="2" width="8" x="4" y="13"></rect>
+</svg>
+</div>
+<!-- (8,5): EXPLOSION EAST FAR END (BURNING A CRATE!) -->
+<div class="bg-retro-terracotta border border-retro-yellow flex items-center justify-center animate-flame relative">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<polygon fill="#FFD23F" points="0,2 16,8 0,14"></polygon>
+<polygon fill="#FFFDF5" points="0,5 12,8 0,11"></polygon>
+</svg>
+<span class="absolute font-display-arcade text-[6px] text-retro-brown">💥</span>
+</div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 6 (y=6) -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (6,6): EXPLOSION SOUTH ARM -->
+<div class="bg-retro-terracotta relative border border-retro-yellow flex items-center justify-center animate-flame">
+<svg class="w-full h-full" viewbox="0 0 16 16">
+<rect fill="#FFD23F" height="16" width="8" x="4" y="0"></rect>
+<rect fill="#FFFDF5" height="12" width="4" x="6" y="2"></rect>
+<rect fill="#C65D3B" height="8" width="2" x="2" y="4"></rect>
+<rect fill="#C65D3B" height="8" width="2" x="12" y="4"></rect>
+</svg>
+</div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 7 (y=7) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<!-- (8,7): POWER-UP: EXTRA FLAME (+FOGO) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark relative flex flex-col items-center justify-center">
+<div class="w-6 h-6 bg-surface-container-lowest border border-retro-terracotta p-0.5 shadow-[1px_1px_0_0_#3B2A20] flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-retro-terracotta" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<span class="text-[5px] font-display-arcade text-retro-cream bg-retro-terracotta px-0.5 mt-0.5 border border-retro-brown leading-tight">+FOGO</span>
+</div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 8 (y=8) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (10,8): ACTIVE BOMB 2 (Ticking!) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark relative flex items-center justify-center">
+<div class="w-8 h-8 relative flex items-center justify-center animate-bomb">
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<rect class="animate-fuse" fill="#FFD23F" height="3" width="3" x="9" y="1"></rect>
+<rect fill="#C65D3B" height="2" width="3" x="7" y="3"></rect>
+<rect fill="#3B2A20" height="2" width="4" x="6" y="4"></rect>
+<circle cx="8" cy="9" fill="#1D2B53" r="6"></circle>
+<rect fill="#FFFDF5" height="2" width="2" x="5" y="6"></rect>
+</svg>
+</div>
+</div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 9 (y=9) -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 10 (y=10) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<!-- ROW 11 (y=11) -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-cactus-dark border-2 border-retro-brown flex items-center justify-center"><svg class="w-full h-full p-0.5" viewbox="0 0 16 16"><rect fill="#3F7D4E" height="13" width="4" x="6" y="2"></rect></svg></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- ROW 12 (y=12): BOTTOM ROW WITH P3 (Bottom Left) AND P4 (Bottom Right) -->
+<!-- (0,12): P3 SPAWN / YELLOW EXPLORER (Solar Crest) -->
+<div class="relative bg-retro-sand flex items-center justify-center border-[0.5px] border-retro-sand-dark">
+<div class="w-8 h-8 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<!-- Solar Crest -->
+<polygon fill="#FFD23F" points="8,0 6,3 10,3"></polygon>
+<rect fill="#E8C987" height="2" width="10" x="3" y="3"></rect>
+<!-- Yellow Body -->
+<rect fill="#edc22f" height="7" width="10" x="3" y="5"></rect>
+<rect fill="#000b2e" height="3" width="3" x="4" y="6"></rect>
+<rect fill="#000b2e" height="3" width="3" x="9" y="6"></rect>
+<rect fill="#FFFDF5" height="1" width="1" x="5" y="7"></rect>
+<rect fill="#FFFDF5" height="1" width="1" x="10" y="7"></rect>
+<!-- Boots -->
+<rect fill="#3B2A20" height="3" width="3" x="4" y="12"></rect>
+<rect fill="#3B2A20" height="3" width="3" x="9" y="12"></rect>
+</svg>
+<span class="absolute -top-3 bg-tertiary text-on-tertiary font-display-arcade text-[6px] px-0.5 border border-retro-brown">P3</span>
+</div>
+</div>
+<!-- (1,12): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (2,12): Clay Crate -->
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<div class="bg-retro-terracotta border-2 border-retro-brown relative p-1 flex items-center justify-center"><span class="font-display-arcade text-[7px] text-retro-brown">✕</span></div>
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (13,12): Empty Sand -->
+<div class="bg-retro-sand border-[0.5px] border-retro-sand-dark"></div>
+<!-- (14,12): P4 SPAWN / GREEN EXPLORER (Juazeiro) -->
+<div class="relative bg-retro-sand flex items-center justify-center border-[0.5px] border-retro-sand-dark">
+<div class="w-8 h-8 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[2px_2px_0px_#3B2A20]" viewbox="0 0 16 16">
+<!-- Juazeiro Green Hat -->
+<rect fill="#3F7D4E" height="3" width="12" x="2" y="1"></rect>
+<rect fill="#2E5C39" height="2" width="8" x="4" y="0"></rect>
+<!-- Green Body -->
+<rect fill="#94d69f" height="7" width="10" x="3" y="4"></rect>
+<rect fill="#0f5228" height="3" width="8" x="4" y="5"></rect>
+<rect fill="#aff2b9" height="1" width="2" x="5" y="6"></rect>
+<rect fill="#aff2b9" height="1" width="2" x="9" y="6"></rect>
+<!-- Boots -->
+<rect fill="#3B2A20" height="3" width="3" x="4" y="12"></rect>
+<rect fill="#3B2A20" height="3" width="3" x="9" y="12"></rect>
+</svg>
+<span class="absolute -top-3 bg-secondary text-on-secondary font-display-arcade text-[6px] px-0.5 border border-retro-brown">P4</span>
+</div>
+</div>
+</div>
+<!-- Regional Geometric Brick Pattern Trim Bottom -->
+<div class="absolute bottom-1 left-3 right-3 h-1 flex justify-between">
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+<div class="w-3 h-1 bg-retro-terracotta"></div>
+<div class="w-3 h-1 bg-retro-sand"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- ================= RETRO HOTKEY BAR ================= -->
+<div class="w-full max-w-5xl mx-auto px-4 py-1.5 flex flex-wrap items-center justify-between gap-3 text-label-md font-label-md bg-surface-container border-2 border-surface-container-highest shadow-[2px_2px_0_0_#000b2e] mb-1">
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-lowest text-tertiary px-1.5 py-0.5 border border-retro-brown font-display-arcade text-[8px]">[ESPAÇO]</span>
+<span class="text-on-surface">Largar Bomba</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-lowest text-secondary px-1.5 py-0.5 border border-retro-brown font-display-arcade text-[8px]">[SETAS / WASD]</span>
+<span class="text-on-surface">Movimentar</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-lowest text-primary px-1.5 py-0.5 border border-retro-brown font-display-arcade text-[8px]">[ESC]</span>
+<span class="text-on-surface">Pausa / Opções</span>
+</div>
+<div class="hidden sm:flex items-center gap-1 text-label-sm font-label-sm text-outline">
+<span class="material-symbols-outlined text-xs">sports_esports</span>
+<span>MODO ARCADE MULTIPLAYER ATIVO</span>
+</div>
+</div>
+<!-- ================= FOOTER (ANCHOR COMPONENT) ================= -->
+<footer class="bg-surface-container-lowest border-t-2 border-surface-container-highest text-secondary text-center z-40 relative">
+<div class="flex flex-col sm:flex-row justify-between items-center w-full px-space-md py-space-xs text-center gap-2">
+<!-- Brand Logo / Copyright strictly matching JSON content & casing -->
+<span class="text-label-md font-label-md text-outline">
+        © 1994 CAATINGA PIXEL WORKS - ALL RIGHTS RESERVED
+      </span>
+<!-- Inactive & Active links matching JSON keys -->
+<div class="flex items-center gap-6">
+<a class="text-outline font-label-sm hover:text-secondary-fixed active:translate-x-0.5 active:translate-y-0.5 transition-none" href="#">
+          CONTROLS
+        </a>
+<a class="text-secondary font-label-sm hover:text-secondary-fixed active:translate-x-0.5 active:translate-y-0.5 transition-none" href="#">
+          SERVER PING: 24MS
+        </a>
+<a class="text-outline font-label-sm hover:text-secondary-fixed active:translate-x-0.5 active:translate-y-0.5 transition-none text-retro-terracotta" href="#">
+          QUIT MATCH
+        </a>
+</div>
+</div>
+</footer>
+</body></html>

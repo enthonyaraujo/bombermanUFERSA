@@ -1,0 +1,1353 @@
+/* ==========================================================================
+   BOMBERMAN UFERSA - DESIGN SYSTEM SERTÃO PIXEL (16-BIT RETRO ARCADE)
+   Inspirado no Google Stitch UI/UX · Sistemas Distribuídos UFERSA
+   ========================================================================== */
+
+:root {
+  /* Paleta Caatinga 16-Bit Oficial */
+  --retro-sand: #E8C987;
+  --retro-sand-light: #FFF5D6;
+  --retro-sand-dark: #C8A663;
+  --retro-terracotta: #C65D3B;
+  --retro-terracotta-dark: #973B1E;
+  --retro-cactus: #3F7D4E;
+  --retro-cactus-dark: #2E5C39;
+  --retro-brown: #3B2A20;
+  --retro-blue: #1D2B53;
+  --retro-blue-deep: #0e1d45;
+  --retro-blue-dark: #000b2e;
+  --retro-bg: #011038;
+  --retro-yellow: #FFD23F;
+  --retro-red: #D9383A;
+  --retro-green: #3F7D4E;
+  --retro-cream: #FFFDF5;
+  --retro-muted: #A58B84;
+
+  /* Fontes Retrô */
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-mono: 'Space Mono', monospace;
+}
+
+/* Reset e Configurações Globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  user-select: none;
+}
+
+body {
+  background-color: var(--retro-bg);
+  color: var(--retro-sand);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background-image: 
+    linear-gradient(to right, rgba(59, 42, 32, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 42, 32, 0.25) 1px, transparent 1px);
+  background-size: 16px 16px;
+  overflow-x: hidden;
+}
+
+#app-container {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   CABEÇALHO OFICIAL (ECS + EQUIPE SD + PING)
+   ========================================================================== */
+.app-header {
+  background: var(--retro-blue-dark);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-brown);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ecs-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--retro-yellow);
+  background: var(--retro-blue-deep);
+  padding: 6px 10px;
+  border: 2px solid var(--retro-brown);
+}
+
+.team-banner {
+  font-size: 0.75rem;
+  color: var(--retro-muted);
+  font-family: var(--font-mono);
+}
+
+.team-banner strong {
+  color: var(--retro-terracotta);
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+}
+
+.team-banner span {
+  color: var(--retro-sand);
+}
+
+.ping-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.60rem;
+  color: var(--retro-cactus);
+  background: var(--retro-blue-deep);
+  padding: 6px 10px;
+  border: 2px solid var(--retro-brown);
+}
+
+/* Indicadores de Status */
+.status-indicator, .status-dot {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border: 1px solid var(--retro-brown);
+}
+
+.status-indicator.online, .status-dot.green {
+  background-color: #3F7D4E;
+}
+
+.status-indicator.alert, .status-dot.yellow {
+  background-color: var(--retro-yellow);
+}
+
+.status-indicator.offline, .status-dot.red {
+  background-color: var(--retro-red);
+}
+
+.pulse {
+  animation: pixelPulse 1.2s infinite steps(2);
+}
+
+@keyframes pixelPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* ==========================================================================
+   TELA DE CARD / PAINEL
+   ========================================================================== */
+.card-screen {
+  background: var(--retro-blue-deep);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 6px 6px 0px 0px var(--retro-brown);
+  padding: 24px;
+  position: relative;
+}
+
+/* Ribbon de Título */
+.ribbon-header {
+  background: var(--retro-terracotta);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  padding: 14px 20px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo-title {
+  font-family: var(--font-pixel);
+  font-size: 1.35rem;
+  color: var(--retro-sand);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0px var(--retro-brown);
+}
+
+.logo-subtitle {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--retro-yellow);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* Formulário de Login */
+.lobby-form {
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.input-block label {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--retro-sand);
+  letter-spacing: 1px;
+}
+
+input[type="text"], input[type="password"] {
+  background: var(--retro-blue);
+  color: var(--retro-sand);
+  border: 3px solid var(--retro-brown);
+  box-shadow: inset 3px 3px 0px var(--retro-blue-dark);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: bold;
+  outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  border-color: var(--retro-yellow);
+  background: #233463;
+}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+  color: var(--retro-muted);
+}
+
+.code-styled-input {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-family: var(--font-pixel) !important;
+  font-size: 0.85rem !important;
+  text-align: center;
+}
+
+.input-hint {
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+}
+
+.room-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.room-input-row input {
+  flex: 1;
+}
+
+/* Botões 16-Bit Retrô */
+.btn-pixel {
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  padding: 10px 16px;
+  border: 3px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-brown);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.btn-pixel:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px 0px var(--retro-brown);
+}
+
+.btn-pixel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 4px 4px 0px 0px var(--retro-brown) !important;
+}
+
+.btn-terracotta {
+  background: var(--retro-terracotta);
+  color: var(--retro-sand);
+}
+.btn-terracotta:hover:not(:disabled) {
+  background: #d86944;
+  color: var(--retro-yellow);
+}
+
+.btn-cactus {
+  background: var(--retro-cactus);
+  color: var(--retro-sand);
+}
+.btn-cactus:hover:not(:disabled) {
+  background: #4a915b;
+  color: var(--retro-cream);
+}
+.btn-cactus.active {
+  background: #2E5C39;
+  border-color: var(--retro-yellow);
+  color: var(--retro-yellow);
+  box-shadow: inset 2px 2px 0px var(--retro-blue-dark);
+}
+
+.btn-secondary {
+  background: #25335b;
+  color: var(--retro-sand);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: #314477;
+}
+
+.btn-night {
+  background: #25335b;
+  color: #ffb59e;
+}
+.btn-night:hover:not(:disabled) {
+  background: #3b2028;
+  color: #ffdad6;
+}
+
+.btn-lg {
+  font-size: 0.85rem;
+  padding: 14px 24px;
+}
+
+/* Rodapé Rápido do Formulário */
+.lobby-quick-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 2px solid var(--retro-brown);
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+}
+
+.quick-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #94d69f;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   TELA 2: LOBBY PRINCIPAL (SALAS ATIVAS EM TEMPO REAL)
+   ========================================================================== */
+.lobby-panel-header {
+  background: var(--retro-terracotta);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.panel-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.panel-title {
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  color: var(--retro-sand);
+  letter-spacing: 1px;
+}
+
+.panel-player {
+  font-size: 0.70rem;
+  color: var(--retro-cream);
+}
+.panel-player strong {
+  color: var(--retro-yellow);
+}
+
+.badge-status-online {
+  background: var(--retro-blue-deep);
+  border: 2px solid var(--retro-brown);
+  padding: 4px 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: #94d69f;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lobby-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lobby-action-left {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quick-code-box {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.quick-code-box input {
+  width: 150px;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: var(--font-pixel);
+  text-align: center;
+}
+
+.rooms-container {
+  min-height: 220px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 3px solid var(--retro-brown);
+  background: #091941;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card Individual de Sala na Lista */
+.room-card-item {
+  background: var(--retro-blue);
+  border: 2px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.1s ease;
+}
+
+.room-card-item:hover {
+  background: #25335b;
+}
+
+.room-card-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.room-code-badge {
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  color: var(--retro-yellow);
+  background: var(--retro-blue-deep);
+  border: 2px solid var(--retro-brown);
+  padding: 6px 10px;
+  letter-spacing: 2px;
+}
+
+.room-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.room-name-title {
+  font-family: var(--font-pixel);
+  font-size: 0.70rem;
+  color: #fff;
+}
+
+.room-meta-tags {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tag-privacy {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: bold;
+}
+.tag-privacy.private {
+  color: var(--retro-yellow);
+}
+.tag-privacy.public {
+  color: #94d69f;
+}
+
+.tag-status {
+  font-size: 0.60rem;
+  font-family: var(--font-pixel);
+  padding: 2px 5px;
+  border: 1px solid var(--retro-brown);
+}
+.tag-status.lobby {
+  background: var(--retro-cactus);
+  color: #fff;
+}
+.tag-status.playing {
+  background: var(--retro-terracotta);
+  color: var(--retro-yellow);
+}
+
+.room-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.room-player-count {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: var(--retro-sand);
+}
+
+.empty-rooms-box {
+  padding: 40px 20px;
+  text-align: center;
+  border: 2px dashed var(--retro-brown);
+  color: var(--retro-muted);
+}
+.empty-rooms-box h3 {
+  font-family: var(--font-pixel);
+  font-size: 0.80rem;
+  color: var(--retro-sand);
+  margin-bottom: 8px;
+}
+
+.lobby-footer-note {
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   TELA 3: SALA DE ESPERA (WAITING ROOM - 4 SLOTS)
+   ========================================================================== */
+.waiting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--retro-brown);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.waiting-title {
+  font-family: var(--font-pixel);
+  font-size: 0.95rem;
+  color: var(--retro-sand);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.highlight-code {
+  color: var(--retro-yellow);
+}
+
+.room-privacy-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  background: var(--retro-blue);
+  border: 1px solid var(--retro-brown);
+  padding: 2px 6px;
+  color: var(--retro-yellow);
+}
+
+.waiting-subtitle {
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+  margin-top: 4px;
+}
+
+.waiting-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.badge-mode, .badge-slots {
+  background: var(--retro-blue);
+  border: 2px solid var(--retro-brown);
+  padding: 4px 8px;
+  font-family: var(--font-pixel);
+  font-size: 0.60rem;
+}
+.badge-mode { color: var(--retro-yellow); }
+.badge-slots { color: #94d69f; }
+
+.instruction-box {
+  background: #091941;
+  border: 2px dashed var(--retro-brown);
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  color: var(--retro-sand-light);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Grade de 4 Slots de Jogadores */
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.player-slot-card {
+  background: var(--retro-blue);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-brown);
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  min-height: 180px;
+  justify-content: space-between;
+}
+
+.slot-tag {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.50rem;
+  padding: 2px 4px;
+  background: #25335b;
+  color: var(--retro-sand);
+  border: 1px solid var(--retro-brown);
+}
+
+.slot-tag.host {
+  background: var(--retro-terracotta);
+  color: var(--retro-sand);
+}
+
+.slot-crown {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 0.95rem;
+}
+
+/* Moldura do Avatar Pixel */
+.slot-avatar-frame {
+  width: 56px;
+  height: 56px;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  border: 3px solid var(--retro-brown);
+  background: #091941;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pixel-robot-icon {
+  width: 28px;
+  height: 28px;
+  position: relative;
+}
+
+.slot-robot-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.45rem;
+  color: var(--retro-yellow);
+  margin-top: 2px;
+}
+
+.slot-player-name {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  color: #fff;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 6px;
+}
+
+.slot-status-pill {
+  width: 100%;
+  padding: 6px 4px;
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  border: 2px solid var(--retro-brown);
+  text-align: center;
+}
+
+.slot-status-pill.ready {
+  background: var(--retro-cactus);
+  color: var(--retro-cream);
+}
+
+.slot-status-pill.waiting {
+  background: var(--retro-yellow);
+  color: var(--retro-brown);
+}
+
+.slot-status-pill.empty {
+  background: #141f3d;
+  color: var(--retro-muted);
+  border-style: dashed;
+}
+
+.waiting-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 2px solid var(--retro-brown);
+}
+
+.controls-hint-bar {
+  margin-top: 12px;
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   TELA 4: ARENA DE JOGO (HUD + CANVAS SEM ROLAGEM / SCROLL-FREE)
+   ========================================================================== */
+
+/* Esconde cabeçalho oficial e rodapé durante a partida para evitar qualquer rolagem */
+body:has(#game-screen:not(.hidden)) .app-header,
+body:has(#game-screen:not(.hidden)) .app-footer,
+body.in-game-mode .app-header,
+body.in-game-mode .app-footer {
+  display: none !important;
+}
+
+/* Trava a tela inteira em 100vh/100dvh estritamente sem rolagem */
+body:has(#game-screen:not(.hidden)),
+body.in-game-mode {
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  padding: 6px !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+body:has(#game-screen:not(.hidden)) #app-container,
+body.in-game-mode #app-container {
+  height: 100% !important;
+  max-height: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 4px !important;
+  overflow: hidden !important;
+}
+
+#game-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.game-hud {
+  width: 100%;
+  max-width: 900px;
+  background: var(--retro-blue-deep);
+  border: 3px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-pixel);
+  font-size: 0.60rem;
+  color: var(--retro-sand);
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.game-hud strong {
+  color: var(--retro-yellow);
+}
+
+.badge-alert {
+  background: var(--retro-red);
+  color: #fff;
+  padding: 2px 5px;
+  border: 1px solid var(--retro-brown);
+  font-size: 0.52rem;
+  margin-left: 6px;
+  animation: pulseAlert 0.8s infinite steps(2);
+}
+
+@keyframes pulseAlert {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+.hud-players-bar {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.hud-player-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-pixel);
+  font-size: 0.52rem;
+  background: var(--retro-blue-deep);
+  border: 2px solid var(--retro-brown);
+  padding: 2px 6px;
+  box-shadow: 2px 2px 0px 0px var(--retro-brown);
+  color: var(--retro-sand);
+}
+
+.hud-player-item.dead {
+  opacity: 0.4;
+  text-decoration: line-through;
+  filter: grayscale(1);
+}
+
+.hud-player-item .chip-dot {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border: 1px solid var(--retro-brown);
+}
+
+/* Moldura da Arena de Jogo Autoadaptável à Altura da Tela */
+.canvas-wrapper {
+  background: #000B2E;
+  border: 4px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-blue-dark);
+  flex: 1 1 0;
+  min-height: 0; /* Permite ao flex child encolher para caber em qualquer monitor */
+  max-height: calc(100vh - 105px);
+  max-height: calc(100dvh - 105px);
+  aspect-ratio: 816 / 624;
+  width: auto;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.controls-guide {
+  display: flex;
+  gap: 12px;
+  font-size: 0.65rem;
+  color: var(--retro-muted);
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 1px 0;
+}
+
+.control-key span {
+  color: var(--retro-yellow);
+  background: var(--retro-blue);
+  border: 1px solid var(--retro-brown);
+  padding: 1px 4px;
+  font-family: var(--font-mono);
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   MODAIS CENTRALIZADOS RETRÔ 16-BIT
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(1, 16, 56, 0.88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* Mini Tela Centralizada */
+.modal-mini-card {
+  background: var(--retro-blue-deep);
+  border: 4px solid var(--retro-brown);
+  box-shadow: 8px 8px 0px 0px var(--retro-blue-dark);
+  padding: 24px;
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+}
+
+.modal-card {
+  background: var(--retro-blue-deep);
+  border: 4px solid var(--retro-brown);
+  box-shadow: 8px 8px 0px 0px var(--retro-blue-dark);
+  padding: 24px;
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+  position: relative;
+}
+
+.modal-ribbon {
+  display: inline-block;
+  background: var(--retro-terracotta);
+  color: var(--retro-sand);
+  border: 2px solid var(--retro-brown);
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 4px 12px;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.modal-lock-icon {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+}
+
+.modal-title {
+  font-family: var(--font-pixel);
+  font-size: 1.15rem;
+  color: var(--retro-sand);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.modal-subtitle {
+  font-size: 0.75rem;
+  color: var(--retro-muted);
+  margin-bottom: 16px;
+}
+
+/* Seletor de Privacidade (Pública / Privada) */
+.privacy-selector {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.privacy-option {
+  flex: 1;
+  cursor: pointer;
+}
+
+.privacy-option input[type="radio"] {
+  display: none;
+}
+
+.privacy-option-box {
+  display: block;
+  padding: 10px 8px;
+  background: var(--retro-blue);
+  border: 2px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  color: var(--retro-sand);
+  text-align: center;
+  transition: all 0.1s ease;
+}
+
+.privacy-option input[type="radio"]:checked + .privacy-option-box {
+  background: var(--retro-terracotta);
+  color: var(--retro-yellow);
+  border-color: var(--retro-yellow);
+  box-shadow: inset 2px 2px 0px var(--retro-brown);
+}
+
+.password-error {
+  color: var(--retro-red);
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.modal-mini-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* Pódio 16-Bit */
+.winner-title {
+  font-family: var(--font-pixel);
+  font-size: 1.25rem;
+  color: var(--retro-yellow);
+  margin-bottom: 6px;
+  text-shadow: 2px 2px 0px var(--retro-brown);
+}
+
+.winner-desc {
+  font-size: 0.85rem;
+  color: var(--retro-sand);
+  margin-bottom: 20px;
+}
+
+.podium-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  align-items: flex-end;
+  margin: 16px 0 24px 0;
+  min-height: 190px;
+}
+
+.podium-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.podium-player-card {
+  background: var(--retro-blue);
+  border: 2px solid var(--retro-brown);
+  box-shadow: 3px 3px 0px 0px var(--retro-brown);
+  padding: 8px 4px;
+  width: 100%;
+  margin-bottom: 6px;
+  font-size: 0.60rem;
+}
+
+.podium-player-name {
+  font-family: var(--font-pixel);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.podium-player-score {
+  font-family: var(--font-mono);
+  color: var(--retro-yellow);
+  font-size: 0.70rem;
+  font-weight: bold;
+}
+
+.podium-block {
+  width: 100%;
+  border: 3px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-brown);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 8px;
+  font-family: var(--font-pixel);
+}
+
+.podium-block.rank-1 {
+  height: 130px;
+  background: #d0a706;
+  color: #3d2f00;
+  order: 2;
+  box-shadow: 6px 6px 0px 0px var(--retro-brown);
+}
+
+.podium-block.rank-2 {
+  height: 95px;
+  background: #C65D3B;
+  color: var(--retro-sand);
+  order: 1;
+}
+
+.podium-block.rank-3 {
+  height: 70px;
+  background: #3F7D4E;
+  color: var(--retro-cream);
+  order: 3;
+}
+
+.podium-block.rank-4 {
+  height: 50px;
+  background: #1A2850;
+  color: var(--retro-muted);
+  order: 4;
+}
+
+.podium-rank-num {
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.podium-block-label {
+  font-size: 0.45rem;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS HUD (16-BIT RETRO)
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+  max-width: 360px;
+}
+
+.pixel-toast {
+  border: 3px solid var(--retro-brown);
+  box-shadow: 4px 4px 0px 0px var(--retro-brown);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--font-mono);
+  animation: slideInToast 0.2s steps(4) forwards;
+}
+
+@keyframes slideInToast {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.pixel-toast.warning {
+  background: var(--retro-yellow);
+  color: #3d2f00;
+}
+
+.pixel-toast.alert {
+  background: var(--retro-terracotta);
+  color: var(--retro-sand);
+}
+
+.pixel-toast.success {
+  background: var(--retro-cactus);
+  color: var(--retro-cream);
+}
+
+.toast-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.toast-title {
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  margin-bottom: 2px;
+}
+
+.toast-message {
+  font-size: 0.75rem;
+}
+
+.toast-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.50rem;
+  padding: 2px 4px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid currentColor;
+}
+
+/* ==========================================================================
+   RODAPÉ GERAL
+   ========================================================================== */
+.app-footer {
+  background: var(--retro-blue-dark);
+  border-top: 2px solid var(--retro-brown);
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.70rem;
+  color: var(--retro-muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-links span {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  color: var(--retro-sand-dark);
+}
+
+/* Utilidade Oculto */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (TABLETS E DISPOSITIVOS MÓVEIS)
+   ========================================================================== */
+@media (max-width: 860px) {
+  #app-container {
+    gap: 8px;
+  }
+
+  .logo-title {
+    font-size: 1.10rem;
+  }
+
+  .players-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .podium-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .podium-block.rank-1 { order: 1; height: 100px; }
+  .podium-block.rank-2 { order: 2; height: 85px; }
+  .podium-block.rank-3 { order: 3; height: 70px; }
+  .podium-block.rank-4 { order: 4; height: 55px; }
+
+  .game-hud {
+    font-size: 0.55rem;
+    padding: 6px 10px;
+  }
+
+  .lobby-action-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .quick-code-box {
+    width: 100%;
+  }
+
+  .quick-code-box input {
+    flex: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 4px;
+  }
+
+  .card-screen {
+    padding: 14px 10px;
+  }
+
+  .logo-title {
+    font-size: 0.95rem;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .players-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .waiting-actions {
+    flex-direction: column;
+  }
+
+  .btn-pixel {
+    width: 100%;
+  }
+
+  .canvas-wrapper {
+    max-height: 60vh;
+  }
+
+  .room-card-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .room-card-actions {
+    justify-content: space-between;
+  }
+}

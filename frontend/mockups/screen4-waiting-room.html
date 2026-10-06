@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sala de Espera - BombermanUFERSA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#e0714d",
+              "on-tertiary": "#3d2f00",
+              "outline-variant": "#56423c",
+              "on-tertiary-container": "#4f3e00",
+              "on-error-container": "#ffdad6",
+              "on-background": "#dbe1ff",
+              "outline": "#a58b84",
+              "tertiary-fixed-dim": "#edc22e",
+              "surface-container-low": "#091941",
+              "on-secondary-fixed": "#00210b",
+              "secondary-fixed-dim": "#94d69f",
+              "secondary-fixed": "#aff2b9",
+              "error": "#ffb4ab",
+              "on-tertiary-fixed": "#241a00",
+              "surface-bright": "#2a3760",
+              "inverse-primary": "#9f4021",
+              "inverse-on-surface": "#212e57",
+              "on-error": "#690005",
+              "on-secondary-fixed-variant": "#0f5228",
+              "secondary-container": "#0f5228",
+              "secondary": "#94d69f",
+              "error-container": "#93000a",
+              "on-secondary-container": "#83c48e",
+              "on-primary-container": "#521300",
+              "surface-container-highest": "#25335b",
+              "surface-dim": "#011038",
+              "primary-fixed": "#ffdbd0",
+              "surface-container": "#0e1d45",
+              "on-secondary": "#003917",
+              "primary-fixed-dim": "#ffb59e",
+              "surface-container-high": "#1a2850",
+              "surface-tint": "#ffb59e",
+              "on-tertiary-fixed-variant": "#574500",
+              "on-surface": "#dbe1ff",
+              "primary": "#ffb59e",
+              "surface": "#011038",
+              "on-primary-fixed": "#3a0b00",
+              "tertiary-container": "#d0a706",
+              "on-primary": "#5e1700",
+              "inverse-surface": "#dbe1ff",
+              "tertiary-fixed": "#ffe089",
+              "on-surface-variant": "#ddc0b8",
+              "background": "#011038",
+              "tertiary": "#edc22f",
+              "surface-container-lowest": "#000b2e",
+              "on-primary-fixed-variant": "#802a0b",
+              "surface-variant": "#25335b"
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+            spacing: {
+              "space-md": "1rem",
+              "gutter-mobile": "0.5rem",
+              "space-xs": "0.25rem",
+              "space-lg": "1.5rem",
+              "space-xl": "2rem",
+              "margin": "1.5rem",
+              "space-sm": "0.5rem",
+              "margin-mobile": "0.75rem",
+              "gutter": "1rem"
+            },
+            fontFamily: {
+              "label-lg": ["Space Mono"],
+              "body-lg": ["Space Mono"],
+              "headline-md": ["Space Mono"],
+              "headline-lg": ["Space Mono"],
+              "label-md": ["Space Mono"],
+              "label-sm": ["Space Mono"],
+              "stat-counter": ["Space Mono"],
+              "headline-sm": ["Space Mono"],
+              "body-sm": ["Space Mono"],
+              "display-arcade": ["Space Mono"],
+              "body-md": ["Space Mono"]
+            },
+            fontSize: {
+              "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+              "body-lg": ["14px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+              "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+              "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+              "label-md": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+              "label-sm": ["9px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+              "stat-counter": ["20px", { "lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+              "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+              "body-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+              "display-arcade": ["32px", { "lineHeight": "40px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+              "body-md": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      .pixel-box {
+        box-shadow: 4px 4px 0px 0px #3B2A20;
+        border: 3px solid #3B2A20;
+      }
+      .pixel-box-pressed {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0px 0px #3B2A20;
+      }
+      .pixel-btn {
+        box-shadow: 4px 4px 0px 0px #3B2A20;
+        border: 3px solid #3B2A20;
+        transition: transform 0.1s, box-shadow 0.1s;
+      }
+      .pixel-btn:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0px 0px #3B2A20;
+      }
+    </style>
+</head>
+<body class="bg-[#011038] text-[#dbe1ff] font-['Space_Mono'] min-h-screen flex flex-col justify-between select-none">
+<!-- TopNavBar -->
+<header class="bg-[#1D2B53] text-[#ffb59e] flex justify-between items-center w-full px-space-md py-space-xs max-w-full border-b-4 border-[#000b2e] shadow-[0_4px_0_0_#000b2e] z-50">
+<div class="flex items-center space-x-4">
+<span class="text-headline-md font-headline-md text-tertiary uppercase tracking-widest">CAATINGA BOMBER '94</span>
+<span class="hidden md:inline-block text-label-md font-label-md text-outline">|</span>
+<span class="text-headline-sm font-headline-sm text-on-surface">Sala de Espera - BombermanUFERSA</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="flex items-center space-x-2 bg-[#091941] px-3 py-1 border-2 border-[#3B2A20]">
+<span class="w-3 h-3 bg-[#3F7D4E] inline-block"></span>
+<span class="text-label-md font-label-md text-secondary">Conectado · 42 ms</span>
+</div>
+<div class="hidden md:flex items-center space-x-3">
+<span class="material-symbols-outlined text-tertiary cursor-pointer hover:text-white" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-tertiary cursor-pointer hover:text-white" data-icon="volume_up">volume_up</span>
+<span class="material-symbols-outlined text-tertiary cursor-pointer hover:text-white" data-icon="help">help</span>
+</div>
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 bg-surface-bright border-2 border-[#3B2A20] flex items-center justify-center text-xs font-bold text-tertiary">P1</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas (16:9 Desktop Simulation Area) -->
+<main class="flex-1 max-w-7xl w-full mx-auto p-space-md md:p-space-xl flex flex-col justify-center">
+<div class="w-full bg-[#1D2B53] pixel-box p-6 md:p-8 flex flex-col gap-6 relative">
+<!-- Inner bezel line -->
+<div class="absolute inset-1 border border-[#E8C987] pointer-events-none opacity-40"></div>
+<!-- Header inside the window -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-[#3B2A20] pb-4 gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-[#E8C987]">SALA DE PARTIDA #094</h1>
+<p class="text-body-sm font-body-sm text-outline">MAPA: UNIVERSIDADE FEDERAL RURAL DO SEMI-ÁRIDO - CAMPUS CENTRAL</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-[#25335b] border-2 border-[#3B2A20] text-label-md font-label-md text-[#edc22f]">MODO: BATALHA CLÁSSICA</span>
+<span class="px-3 py-1 bg-[#25335b] border-2 border-[#3B2A20] text-label-md font-label-md text-[#94d69f]">4 / 4 JOGADORES</span>
+</div>
+</div>
+<!-- 4 Player Slots Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-2">
+<!-- Slot 1 (Host) -->
+<div class="bg-[#0e1d45] border-3 border-[#3B2A20] p-4 flex flex-col items-center justify-between relative shadow-[4px_4px_0px_0px_#3B2A20]">
+<div class="absolute top-2 left-2 bg-[#C65D3B] text-white text-label-sm px-2 py-0.5 border border-[#3B2A20]">HOST</div>
+<div class="absolute top-2 right-2 text-[#edc22f] text-lg">👑</div>
+<div class="w-24 h-24 my-4 bg-[#25335b] border-2 border-[#3B2A20] flex flex-col items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-blue-400" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="absolute bottom-1 text-[9px] text-[#edc22f] font-bold">ROBÔ AZUL</div>
+</div>
+<div class="text-center w-full">
+<div class="text-headline-sm font-headline-sm text-white truncate">Jogador 1 (Host)</div>
+<div class="mt-2 inline-block px-3 py-1 bg-[#3F7D4E] text-[#E8C987] text-label-md border-2 border-[#3B2A20] w-full text-center">
+                            Pronto
+                        </div>
+</div>
+</div>
+<!-- Slot 2 -->
+<div class="bg-[#0e1d45] border-3 border-[#3B2A20] p-4 flex flex-col items-center justify-between relative shadow-[4px_4px_0px_0px_#3B2A20]">
+<div class="absolute top-2 left-2 bg-[#25335b] text-outline text-label-sm px-2 py-0.5 border border-[#3B2A20]">SLOT 2</div>
+<div class="w-24 h-24 my-4 bg-[#25335b] border-2 border-[#3B2A20] flex flex-col items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-red-500" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="absolute bottom-1 text-[9px] text-red-400 font-bold">ROBÔ VERMELHO</div>
+</div>
+<div class="text-center w-full">
+<div class="text-headline-sm font-headline-sm text-white truncate">Jogador 2</div>
+<div class="mt-2 inline-block px-3 py-1 bg-[#3F7D4E] text-[#E8C987] text-label-md border-2 border-[#3B2A20] w-full text-center">
+                            Pronto
+                        </div>
+</div>
+</div>
+<!-- Slot 3 -->
+<div class="bg-[#0e1d45] border-3 border-[#3B2A20] p-4 flex flex-col items-center justify-between relative shadow-[4px_4px_0px_0px_#3B2A20]">
+<div class="absolute top-2 left-2 bg-[#25335b] text-outline text-label-sm px-2 py-0.5 border border-[#3B2A20]">SLOT 3</div>
+<div class="w-24 h-24 my-4 bg-[#25335b] border-2 border-[#3B2A20] flex flex-col items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-yellow-400" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="absolute bottom-1 text-[9px] text-yellow-300 font-bold">ROBÔ AMARELO</div>
+</div>
+<div class="text-center w-full">
+<div class="text-headline-sm font-headline-sm text-white truncate">Jogador 3</div>
+<div class="mt-2 inline-block px-3 py-1 bg-[#FFD23F] text-[#3B2A20] text-label-md border-2 border-[#3B2A20] w-full text-center font-bold">
+                            Aguardando
+                        </div>
+</div>
+</div>
+<!-- Slot 4 -->
+<div class="bg-[#0e1d45] border-3 border-[#3B2A20] p-4 flex flex-col items-center justify-between relative shadow-[4px_4px_0px_0px_#3B2A20]">
+<div class="absolute top-2 left-2 bg-[#25335b] text-outline text-label-sm px-2 py-0.5 border border-[#3B2A20]">SLOT 4</div>
+<div class="w-24 h-24 my-4 bg-[#25335b] border-2 border-[#3B2A20] flex flex-col items-center justify-center relative">
+<span class="material-symbols-outlined text-4xl text-emerald-400" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<div class="absolute bottom-1 text-[9px] text-emerald-300 font-bold">ROBÔ VERDE</div>
+</div>
+<div class="text-center w-full">
+<div class="text-headline-sm font-headline-sm text-white truncate">Jogador 4</div>
+<div class="mt-2 inline-block px-3 py-1 bg-[#FFD23F] text-[#3B2A20] text-label-md border-2 border-[#3B2A20] w-full text-center font-bold">
+                            Aguardando
+                        </div>
+</div>
+</div>
+</div>
+<!-- Action Buttons Bar -->
+<div class="flex flex-wrap gap-4 justify-end pt-4 border-t-2 border-[#3B2A20]">
+<button class="pixel-btn bg-[#3F7D4E] text-[#E8C987] px-6 py-3 text-label-lg font-label-lg flex items-center space-x-2">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+<span>Pronto</span>
+</button>
+<button class="pixel-btn bg-[#C65D3B] text-[#E8C987] px-6 py-3 text-label-lg font-label-lg flex items-center space-x-2">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Iniciar Partida</span>
+</button>
+<button class="pixel-btn bg-[#25335b] text-[#ffb59e] px-6 py-3 text-label-lg font-label-lg flex items-center space-x-2">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sair da Sala</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer Controls Banner -->
+<footer class="bg-[#000b2e] text-[#94d69f] flex justify-between items-center w-full px-space-md py-space-xs text-center border-t-2 border-[#25335b]">
+<div class="w-full text-label-sm font-label-sm text-outline tracking-wider py-1">
+            WASD / Setas: mover · Espaço: bomba  |  © 1994 CAATINGA PIXEL WORKS - ALL RIGHTS RESERVED
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BOMBERMANUFERSA - Lobby</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed-dim": "#ffb59e",
+            "on-surface-variant": "#ddc0b8",
+            "error": "#ffb4ab",
+            "on-primary": "#5e1700",
+            "background": "#011038",
+            "primary": "#ffb59e",
+            "inverse-surface": "#dbe1ff",
+            "surface-dim": "#011038",
+            "surface-container-high": "#1a2850",
+            "on-surface": "#dbe1ff",
+            "secondary": "#94d69f",
+            "surface-container-highest": "#25335b",
+            "on-primary-container": "#521300",
+            "on-background": "#dbe1ff",
+            "tertiary-container": "#d0a706",
+            "on-primary-fixed": "#3a0b00",
+            "on-error": "#690005",
+            "on-secondary-fixed-variant": "#0f5228",
+            "on-secondary-container": "#83c48e",
+            "surface-variant": "#25335b",
+            "on-tertiary": "#3d2f00",
+            "tertiary-fixed-dim": "#edc22e",
+            "primary-fixed": "#ffdbd0",
+            "tertiary-fixed": "#ffe089",
+            "surface-bright": "#2a3760",
+            "outline-variant": "#56423c",
+            "tertiary": "#edc22f",
+            "outline": "#a58b84",
+            "surface-tint": "#ffb59e",
+            "inverse-primary": "#9f4021",
+            "on-secondary": "#003917",
+            "on-primary-fixed-variant": "#802a0b",
+            "on-tertiary-fixed-variant": "#574500",
+            "surface-container-low": "#091941",
+            "on-tertiary-container": "#4f3e00",
+            "surface": "#011038",
+            "surface-container": "#0e1d45",
+            "primary-container": "#e0714d",
+            "inverse-on-surface": "#212e57",
+            "surface-container-lowest": "#000b2e",
+            "secondary-fixed-dim": "#94d69f",
+            "secondary-container": "#0f5228",
+            "on-secondary-fixed": "#00210b",
+            "on-error-container": "#ffdad6",
+            "error-container": "#93000a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "margin-mobile": "0.75rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "margin": "1.5rem",
+            "space-md": "1rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.5rem",
+            "space-xl": "2rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Space Mono"],
+            "label-sm": ["Space Mono"],
+            "headline-sm": ["Space Mono"],
+            "body-sm": ["Space Mono"],
+            "label-md": ["Space Mono"],
+            "headline-md": ["Space Mono"],
+            "body-md": ["Space Mono"],
+            "display-arcade": ["Space Mono"],
+            "body-lg": ["Space Mono"],
+            "label-lg": ["Space Mono"],
+            "stat-counter": ["Space Mono"]
+          },
+          "fontSize": {
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "label-sm": ["9px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+            "body-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-md": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "body-md": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "display-arcade": ["32px", { "lineHeight": "40px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "body-lg": ["14px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "stat-counter": ["20px", { "lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #011038;
+      color: #dbe1ff;
+      font-family: 'Space Mono', monospace;
+      image-rendering: pixelated;
+    }
+    .pixel-box {
+      background-color: #1D2B53;
+      border: 3px solid #3B2A20;
+      box-shadow: 4px 4px 0px 0px #3B2A20;
+    }
+    .pixel-box-inset {
+      box-shadow: inset 3px 3px 0px #0F172A;
+    }
+    .pixel-btn-primary {
+      background-color: #C65D3B;
+      color: #E8C987;
+      border: 3px solid #3B2A20;
+      box-shadow: 4px 4px 0px #3B2A20;
+    }
+    .pixel-btn-primary:hover {
+      background-color: #FFD23F;
+      color: #3B2A20;
+    }
+    .pixel-btn-primary:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0px #3B2A20;
+    }
+    .pixel-btn-secondary {
+      background-color: #3F7D4E;
+      color: #E8C987;
+      border: 3px solid #3B2A20;
+      box-shadow: 4px 4px 0px #3B2A20;
+    }
+    .pixel-btn-secondary:hover {
+      background-color: #94d69f;
+      color: #00210b;
+    }
+    .pixel-btn-secondary:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0px #3B2A20;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface-container dark:bg-surface-container w-full px-space-md py-space-xs max-w-full flex justify-between items-center shadow-[0_4px_0_0_#000b2e] border-b-4 border-surface-container-lowest dark:border-surface-container-lowest z-50">
+<div class="flex items-center space-x-space-md">
+<span class="text-headline-md font-headline-md text-tertiary dark:text-tertiary uppercase tracking-widest">CAATINGA BOMBER '94</span>
+<div class="hidden md:flex items-center space-x-space-md ml-space-xl">
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">ARENA</a>
+<a class="border-b-2 border-tertiary text-tertiary font-headline-sm pb-1" href="#">LOBBY</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">LEADERBOARD</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">SETTINGS</a>
+</div>
+</div>
+<div class="flex items-center space-x-space-md">
+<div class="hidden sm:flex items-center space-x-space-xs bg-surface-container-lowest px-space-sm py-1 border border-outline-variant">
+<span class="w-2 h-2 bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-secondary">CONECTADO · 42 MS</span>
+</div>
+<div class="flex items-center space-x-space-xs">
+<button class="p-1 hover:text-tertiary"><span class="material-symbols-outlined" data-icon="wifi">wifi</span></button>
+<button class="p-1 hover:text-tertiary"><span class="material-symbols-outlined" data-icon="volume_up">volume_up</span></button>
+<button class="p-1 hover:text-tertiary"><span class="material-symbols-outlined" data-icon="help">help</span></button>
+</div>
+<div class="w-8 h-8 bg-surface-container-highest border-2 border-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 max-w-7xl w-full mx-auto p-space-md md:p-space-lg flex flex-col justify-center">
+<!-- Lobby Container Box -->
+<div class="pixel-box p-space-md md:p-space-lg relative">
+<!-- Panel Header Ribbon -->
+<div class="bg-primary-container text-on-primary-container px-space-md py-space-xs mb-space-md flex justify-between items-center border-2 border-[#3B2A20]">
+<span class="font-headline-md text-headline-md tracking-wider uppercase text-on-primary-fixed">LOBBY PRINCIPAL // SALAS DISPONÍVEIS</span>
+<div class="flex items-center space-x-space-sm">
+<span class="text-label-sm bg-surface-container-lowest px-2 py-1 text-secondary border border-[#3B2A20]">STATUS: ONLINE</span>
+</div>
+</div>
+<!-- Action Control Bar -->
+<div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center mb-space-md gap-space-sm">
+<div class="flex items-center space-x-space-sm">
+<button class="pixel-btn-primary px-space-md py-space-sm font-label-md flex items-center justify-center space-x-space-xs">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>CRIAR SALA</span>
+</button>
+<button class="pixel-btn-secondary px-space-md py-space-sm font-label-md flex items-center justify-center space-x-space-xs">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+<span>ATUALIZAR LISTA</span>
+</button>
+</div>
+<div class="flex items-center space-x-space-xs bg-surface-container-lowest px-space-sm py-2 border-2 border-[#3B2A20]">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none text-on-surface text-body-sm focus:outline-none w-full" placeholder="BUSCAR SALA..." type="text"/>
+</div>
+</div>
+<!-- Rooms Table / List -->
+<div class="space-y-space-sm">
+<!-- Room Item 1 -->
+<div class="bg-surface-container-low border-2 border-[#3B2A20] p-space-md flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-surface-container transition-none gap-space-sm">
+<div class="flex items-center space-x-space-md">
+<div class="bg-surface-container-highest px-2 py-1 border border-outline-variant text-tertiary font-headline-sm">
+              #01
+            </div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Arena Sertão Central</h3>
+<p class="text-body-sm text-on-surface-variant">MAPA: MANDACARU RIDGE · HOST: PLAYER_ONE</p>
+</div>
+</div>
+<div class="flex items-center space-x-space-lg w-full md:w-auto justify-between md:justify-end">
+<div class="text-right">
+<span class="text-label-md text-secondary block">2/4 JOGADORES</span>
+<span class="text-body-sm text-outline">AGUARDANDO</span>
+</div>
+<button class="pixel-btn-secondary px-space-md py-1 font-label-md">ENTRAR</button>
+</div>
+</div>
+<!-- Room Item 2 -->
+<div class="bg-surface-container-low border-2 border-[#3B2A20] p-space-md flex flex-col md:flex-row justify-between items-start md:items-center opacity-75 gap-space-sm">
+<div class="flex items-center space-x-space-md">
+<div class="bg-surface-container-highest px-2 py-1 border border-outline-variant text-outline font-headline-sm">
+              #02
+            </div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant">Mandacaru Battle</h3>
+<p class="text-body-sm text-on-surface-variant">MAPA: CACTUS MAZE · HOST: SERTANEJO_99</p>
+</div>
+</div>
+<div class="flex items-center space-x-space-lg w-full md:w-auto justify-between md:justify-end">
+<div class="text-right">
+<span class="text-label-md text-error block">4/4 JOGADORES</span>
+<span class="text-body-sm text-error">EM JOGO (LOTADA)</span>
+</div>
+<button class="bg-surface-container-highest text-outline px-space-md py-1 font-label-md border-2 border-[#3B2A20] cursor-not-allowed" disabled="">LOTADA</button>
+</div>
+</div>
+<!-- Room Item 3 -->
+<div class="bg-surface-container-low border-2 border-[#3B2A20] p-space-md flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-surface-container transition-none gap-space-sm">
+<div class="flex items-center space-x-space-md">
+<div class="bg-surface-container-highest px-2 py-1 border border-outline-variant text-tertiary font-headline-sm">
+              #03
+            </div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Caatinga Hardcore</h3>
+<p class="text-body-sm text-on-surface-variant">MAPA: SOL QUENTE · HOST: BOMB_MASTER</p>
+</div>
+</div>
+<div class="flex items-center space-x-space-lg w-full md:w-auto justify-between md:justify-end">
+<div class="text-right">
+<span class="text-label-md text-secondary block">1/4 JOGADORES</span>
+<span class="text-body-sm text-outline">AGUARDANDO</span>
+</div>
+<button class="pixel-btn-secondary px-space-md py-1 font-label-md">ENTRAR</button>
+</div>
+</div>
+<!-- Room Item 4 -->
+<div class="bg-surface-container-low border-2 border-[#3B2A20] p-space-md flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-surface-container transition-none gap-space-sm">
+<div class="flex items-center space-x-space-md">
+<div class="bg-surface-container-highest px-2 py-1 border border-outline-variant text-tertiary font-headline-sm">
+              #04
+            </div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Laboratório UFERSA</h3>
+<p class="text-body-sm text-on-surface-variant">MAPA: CAMPUS TECH · HOST: PROF_CACTO</p>
+</div>
+</div>
+<div class="flex items-center space-x-space-lg w-full md:w-auto justify-between md:justify-end">
+<div class="text-right">
+<span class="text-label-md text-secondary block">3/4 JOGADORES</span>
+<span class="text-body-sm text-outline">AGUARDANDO</span>
+</div>
+<button class="pixel-btn-secondary px-space-md py-1 font-label-md">ENTRAR</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full px-space-md py-space-xs text-center flex justify-between items-center border-t-2 border-surface-container-highest dark:border-surface-container-highest">
+<div class="text-label-md text-outline">© 1994 CAATINGA PIXEL WORKS - ALL RIGHTS RESERVED</div>
+<div class="hidden sm:flex items-center space-x-space-md">
+<a class="text-outline font-label-sm hover:text-secondary-fixed" href="#">CONTROLS</a>
+<a class="text-outline font-label-sm hover:text-secondary-fixed" href="#">SERVER PING: 24MS</a>
+<a class="text-outline font-label-sm hover:text-secondary-fixed" href="#">QUIT MATCH</a>
+</div>
+</footer>
+</body></html>

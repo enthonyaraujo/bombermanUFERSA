@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resultado da Partida - BombermanUFERSA</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#4f3e00",
+            "primary": "#ffb59e",
+            "error": "#ffb4ab",
+            "on-error": "#690005",
+            "on-surface": "#dbe1ff",
+            "surface-dim": "#011038",
+            "on-tertiary-fixed-variant": "#574500",
+            "tertiary-fixed": "#ffe089",
+            "on-secondary-fixed-variant": "#0f5228",
+            "primary-container": "#e0714d",
+            "on-error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#edc22e",
+            "primary-fixed": "#ffdbd0",
+            "secondary-fixed-dim": "#94d69f",
+            "on-secondary": "#003917",
+            "inverse-surface": "#dbe1ff",
+            "secondary-fixed": "#aff2b9",
+            "error-container": "#93000a",
+            "secondary-container": "#0f5228",
+            "tertiary-container": "#d0a706",
+            "on-secondary-container": "#83c48e",
+            "surface-container-lowest": "#000b2e",
+            "surface-container": "#0e1d45",
+            "surface-container-low": "#091941",
+            "on-primary-container": "#521300",
+            "on-primary": "#5e1700",
+            "surface-tint": "#ffb59e",
+            "surface": "#011038",
+            "outline-variant": "#56423c",
+            "on-primary-fixed": "#3a0b00",
+            "surface-container-highest": "#25335b",
+            "surface-container-high": "#1a2850",
+            "on-tertiary-fixed": "#241a00",
+            "inverse-on-surface": "#212e57",
+            "tertiary": "#edc22f",
+            "on-primary-fixed-variant": "#802a0b",
+            "on-surface-variant": "#ddc0b8",
+            "background": "#011038",
+            "surface-variant": "#25335b",
+            "on-background": "#dbe1ff",
+            "secondary": "#94d69f",
+            "surface-bright": "#2a3760",
+            "on-secondary-fixed": "#00210b",
+            "primary-fixed-dim": "#ffb59e",
+            "inverse-primary": "#9f4021",
+            "on-tertiary": "#3d2f00",
+            "outline": "#a58b84"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1rem",
+            "margin-mobile": "0.75rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.5rem"
+          },
+          "fontFamily": {
+            "label-sm": ["Space Mono"],
+            "headline-md": ["Space Mono"],
+            "body-md": ["Space Mono"],
+            "stat-counter": ["Space Mono"],
+            "body-lg": ["Space Mono"],
+            "headline-sm": ["Space Mono"],
+            "display-arcade": ["Space Mono"],
+            "label-lg": ["Space Mono"],
+            "body-sm": ["Space Mono"],
+            "label-md": ["Space Mono"],
+            "headline-lg": ["Space Mono"]
+          },
+          "fontSize": {
+            "label-sm": ["9px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "body-md": ["12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "stat-counter": ["20px", { "lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "body-lg": ["14px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.03em", "fontWeight": "700" }],
+            "display-arcade": ["32px", { "lineHeight": "40px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "700" }],
+            "body-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "label-md": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .pixel-shadow {
+      box-shadow: 4px 4px 0px 0px #3B2A20;
+    }
+    .pixel-shadow-lg {
+      box-shadow: 8px 8px 0px 0px #3B2A20;
+    }
+    .pixel-button:active {
+      transform: translate(4px, 4px);
+      box-shadow: 0px 0px 0px 0px #3B2A20;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-between selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Component -->
+<header class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary docked full-width top-0 border-b-4 border-surface-container-lowest dark:border-surface-container-lowest shadow-[0_4px_0_0_#000b2e] z-50">
+<div class="flex justify-between items-center w-full px-space-md py-space-xs max-w-full">
+<div class="flex items-center gap-space-md">
+<span class="text-headline-md font-headline-md text-tertiary dark:text-tertiary uppercase tracking-widest">CAATINGA BOMBER '94</span>
+<nav class="hidden md:flex items-center gap-space-lg ml-space-lg">
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">ARENA</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">LOBBY</a>
+<a class="border-b-2 border-tertiary text-tertiary font-headline-sm pb-1" href="#">LEADERBOARD</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface hover:text-tertiary transition-none" href="#">SETTINGS</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="hidden sm:flex items-center gap-space-xs bg-surface-container-lowest px-space-sm py-1 border-2 border-outline/30">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">wifi</span>
+<span class="text-label-sm text-secondary">Conectado · 42 ms</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary">volume_up</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-tertiary">help</span>
+<div class="w-8 h-8 bg-surface-container-highest border-2 border-primary flex items-center justify-center pixel-shadow">
+<span class="material-symbols-outlined text-primary text-base" data-alt="A pixel art portrait of Player 1 Blue Explorer Pixel Avatar, featuring blocky dark blue hair, cyan goggles, and pixelated resolute expression against a dark navy arcade cabinet background with scanlines." style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center px-space-md py-space-xl max-w-7xl mx-auto w-full">
+<!-- Screen Header -->
+<div class="text-center mb-space-lg">
+<div class="inline-block bg-primary-container text-on-primary-container px-space-md py-1 mb-space-xs border-2 border-surface-container-lowest font-label-md uppercase tracking-wider">FIM DE PARTIDA</div>
+<h1 class="text-headline-lg font-headline-lg text-tertiary">RESULTADO DA PARTIDA</h1>
+<p class="text-body-md text-on-surface-variant mt-1">ARENA CAATINGA CENTRAL · MAPA 04</p>
+</div>
+<!-- Retro Pixel Art Podium -->
+<div class="w-full grid grid-cols-1 md:grid-cols-4 gap-space-md items-end mb-space-xl max-w-5xl">
+<!-- 2º Lugar -->
+<div class="flex flex-col items-center order-2 md:order-1">
+<div class="bg-surface-container-high border-2 border-[#3B2A20] p-space-sm mb-space-xs w-full text-center pixel-shadow">
+<div class="flex justify-center mb-1">
+<div class="w-10 h-10 bg-primary-container/30 border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg" data-alt="Pixel art avatar of red robot Asa Branca with glowing orange optical sensors and armored terracotta plating." style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+</div>
+<div class="text-label-sm text-secondary truncate">Robô Vermelho - Asa Branca</div>
+<div class="text-stat-counter text-tertiary-fixed mt-1">1.120 P</div>
+</div>
+<div class="w-full bg-[#8B4513] border-4 border-[#3B2A20] h-32 flex flex-col items-center justify-start pt-space-md pixel-shadow">
+<span class="text-headline-lg font-headline-lg text-surface-container-lowest">2º</span>
+<span class="text-label-sm text-on-tertiary-fixed mt-2">TERRACOTTA</span>
+</div>
+</div>
+<!-- 1º Lugar (Gold Podium) -->
+<div class="flex flex-col items-center order-1 md:order-2 -mt-4 md:-mt-8">
+<div class="animate-bounce mb-1">
+<span class="material-symbols-outlined text-tertiary text-3xl" style="font-variation-settings: 'FILL' 1;">trophy</span>
+</div>
+<div class="bg-surface-container-high border-3 border-tertiary p-space-sm mb-space-xs w-full text-center pixel-shadow-lg relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-tertiary text-on-tertiary font-label-sm px-2 py-0.5 border border-[#3B2A20]">CAMPEÃO</div>
+<div class="flex justify-center mb-1 mt-1">
+<div class="w-12 h-12 bg-tertiary/20 border-2 border-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-xl" data-alt="Pixel art avatar of blue robot Lampião.bot with cowboy hat icon overlay, glowing blue visor, and cobalt armor plating." style="font-variation-settings: 'FILL' 1;">robot_2</span>
+</div>
+</div>
+<div class="text-label-md text-on-surface truncate font-bold">Robô Azul - Lampião.bot</div>
+<div class="text-stat-counter text-tertiary mt-1">1.450 P</div>
+</div>
+<div class="w-full bg-tertiary-container border-4 border-[#3B2A20] h-44 flex flex-col items-center justify-start pt-space-md pixel-shadow-lg">
+<span class="text-headline-lg font-headline-lg text-on-tertiary-container">1º</span>
+<span class="text-label-sm text-on-tertiary mt-2">OURO SERTANEJO</span>
+</div>
+</div>
+<!-- 3º Lugar -->
+<div class="flex flex-col items-center order-3 md:order-3">
+<div class="bg-surface-container-high border-2 border-[#3B2A20] p-space-sm mb-space-xs w-full text-center pixel-shadow">
+<div class="flex justify-center mb-1">
+<div class="w-10 h-10 bg-secondary/20 border-2 border-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-lg" data-alt="Pixel art avatar of yellow robot Mandacaru with cactus-inspired structural green highlights and brass finishing." style="font-variation-settings: 'FILL' 1;">android</span>
+</div>
+</div>
+<div class="text-label-sm text-secondary truncate">Robô Amarelo - Mandacaru</div>
+<div class="text-stat-counter text-tertiary-fixed mt-1">850 P</div>
+</div>
+<div class="w-full bg-[#2E5A36] border-4 border-[#3B2A20] h-24 flex flex-col items-center justify-start pt-space-md pixel-shadow">
+<span class="text-headline-lg font-headline-lg text-surface-container-lowest">3º</span>
+<span class="text-label-sm text-secondary mt-1">MANDACARU</span>
+</div>
+</div>
+<!-- 4º Lugar -->
+<div class="flex flex-col items-center order-4 md:order-4">
+<div class="bg-surface-container-high border-2 border-[#3B2A20] p-space-sm mb-space-xs w-full text-center pixel-shadow">
+<div class="flex justify-center mb-1">
+<div class="w-10 h-10 bg-surface-container border-2 border-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-lg" data-alt="Pixel art avatar of green robot Juazeiro with dark camouflage panels and weathered forest-green armor." style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+</div>
+<div class="text-label-sm text-outline truncate">Robô Verde - Juazeiro</div>
+<div class="text-stat-counter text-outline mt-1">510 P</div>
+</div>
+<div class="w-full bg-[#1A2850] border-4 border-[#3B2A20] h-16 flex flex-col items-center justify-start pt-space-xs pixel-shadow">
+<span class="text-headline-md font-headline-md text-outline">4º</span>
+<span class="text-label-sm text-outline mt-1">JUASEIRO</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-space-md w-full max-w-md justify-center">
+<!-- Primary Button -->
+<button class="flex-1 bg-[#C65D3B] text-[#E8C987] border-[3px] border-[#3B2A20] py-3 px-space-md font-headline-sm text-center pixel-shadow pixel-button hover:bg-[#FFD23F] hover:text-[#3B2A20] transition-colors flex items-center justify-center gap-space-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">replay</span>
+        JOGAR NOVAMENTE
+      </button>
+<!-- Secondary Button -->
+<button class="flex-1 bg-[#3F7D4E] text-[#E8C987] border-[3px] border-[#3B2A20] py-3 px-space-md font-headline-sm text-center pixel-shadow pixel-button hover:bg-secondary hover:text-on-secondary transition-colors flex items-center justify-center gap-space-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+        VOLTAR AO LOBBY
+      </button>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-secondary dark:text-secondary docked full-width bottom-0 border-t-2 border-surface-container-highest dark:border-surface-container-highest">
+<div class="flex flex-col sm:flex-row justify-between items-center w-full px-space-md py-space-xs text-center gap-2">
+<div class="text-label-md font-label-md text-outline dark:text-outline">
+        Sistemas Distribuídos - UFERSA
+      </div>
+<div class="text-label-sm font-label-sm text-secondary">
+        © 1994 CAATINGA PIXEL WORKS - TODOS OS DIREITOS RESERVADOS
+      </div>
+<div class="flex gap-space-md">
+<span class="text-outline font-label-sm hover:text-secondary-fixed cursor-pointer">CONTROLS</span>
+<span class="text-secondary font-label-sm">SERVER PING: 24MS</span>
+<span class="text-outline font-label-sm hover:text-secondary-fixed cursor-pointer">QUIT MATCH</span>
+</div>
+</div>
+</footer>
+</body></html>
