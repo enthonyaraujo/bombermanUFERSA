@@ -145,4 +145,40 @@ describe('Servidor - Lobby em Tempo Real e Salas Among Us', () => {
     assert.equal(msg.roomId, 'SEC1');
     wsCorrect.close();
   });
+
+  test('Deve permitir que 4 jogadores entrem consecutivamente na mesma sala sem apagar nenhum jogador', async () => {
+    const { ActionProcessor } = await import('../src/worker/ActionProcessor.js');
+    const { EventPublisher } = await import('../src/worker/EventPublisher.js');
+
+    let lastBroadcastPlayers = [];
+    const eventPublisher = new EventPublisher(null, (roomId, evt) => {
+      if (evt.type === 'ROOM_STATE' && evt.payload.players) {
+        lastBroadcastPlayers = evt.payload.players;
+      }
+    });
+    eventPublisher.sqsOnline = false;
+
+    const processor = new ActionProcessor(eventPublisher);
+
+    // Entrada de 4 jogadores consecutivos
+    await processor.processDirectAction('ROOM4', 'p1', 1, 'JOIN_ROOM', { name: 'Jogador 1' });
+    assert.equal(lastBroadcastPlayers.length, 1);
+
+    await processor.processDirectAction('ROOM4', 'p2', 1, 'JOIN_ROOM', { name: 'Jogador 2' });
+    assert.equal(lastBroadcastPlayers.length, 2);
+
+    await processor.processDirectAction('ROOM4', 'p3', 1, 'JOIN_ROOM', { name: 'Jogador 3' });
+    assert.equal(lastBroadcastPlayers.length, 3);
+    assert.deepEqual(lastBroadcastPlayers.map(p => p.name), ['Jogador 1', 'Jogador 2', 'Jogador 3']);
+
+    await processor.processDirectAction('ROOM4', 'p4', 1, 'JOIN_ROOM', { name: 'Jogador 4' });
+    assert.equal(lastBroadcastPlayers.length, 4);
+    assert.deepEqual(lastBroadcastPlayers.map(p => p.name), ['Jogador 1', 'Jogador 2', 'Jogador 3', 'Jogador 4']);
+
+    // 5º jogador é rejeitado por sala cheia e lista de 4 se mantém intacta
+    const p5Events = await processor.processDirectAction('ROOM4', 'p5', 1, 'JOIN_ROOM', { name: 'Jogador 5' });
+    assert.equal(p5Events.length, 0);
+    assert.equal(lastBroadcastPlayers.length, 4);
+  });
 });
+

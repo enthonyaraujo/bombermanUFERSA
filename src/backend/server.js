@@ -43,8 +43,20 @@ function handleRoomEvent(roomId, evt) {
   }
 }
 
+// Cache de eventos recentes despachados localmente para evitar re-broadcast duplicado pelo SQS
+const recentlyPublishedEventIds = new Set();
+function markEventPublished(eventId) {
+  if (!eventId) return;
+  recentlyPublishedEventIds.add(eventId);
+  if (recentlyPublishedEventIds.size > 2000) {
+    const oldest = recentlyPublishedEventIds.values().next().value;
+    recentlyPublishedEventIds.delete(oldest);
+  }
+}
+
 // Instancia Worker da Game Engine integrado ao Backend
 const eventPublisher = new EventPublisher(null, (roomId, evt) => {
+  markEventPublished(evt.eventId);
   wsManager.broadcastToRoom(roomId, evt);
   handleRoomEvent(roomId, evt);
 });
@@ -52,9 +64,14 @@ const actionProcessor = new ActionProcessor(eventPublisher, null, roomManager);
 
 // SqsProducer com fallback automático caso o SQS esteja indisponível
 const sqsProducer = new SqsProducer(null, actionProcessor);
-const sqsConsumer = new SqsConsumer(wsManager, null, (roomId, evt) => {
-  handleRoomEvent(roomId, evt);
-});
+const sqsConsumer = new SqsConsumer(
+  wsManager,
+  null,
+  (roomId, evt) => {
+    handleRoomEvent(roomId, evt);
+  },
+  (eventId) => recentlyPublishedEventIds.has(eventId)
+);
 
 // Inicia polling em background do SQS
 let isWorkerRunning = true;
@@ -221,6 +238,14 @@ wss.on('connection', (ws, req) => {
   }
 
   wsManager.registerClient(ws, targetRoomId, playerId);
+
+  // Se a engine da sala já possui jogadores, envia o estado atual imediatamente para o novo participante
+  if (existingEngine && existingEngine.players.size > 0) {
+    ws.send(JSON.stringify({
+      type: 'ROOM_STATE',
+      payload: existingEngine.getRoomStatePayload()
+    }));
+  }
 
   // Enfileira automaticamente o JOIN_ROOM (com seq 1)
   sqsProducer.sendAction(targetRoomId, playerId, 1, 'JOIN_ROOM', { name: playerName })

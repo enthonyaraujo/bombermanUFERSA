@@ -25,14 +25,20 @@ export class EventPublisher {
   async publishEvents(roomId, events) {
     if (!events || events.length === 0) return;
 
-    const now = Date.now();
-    // Fast-path: se SQS estiver offline e o intervalo de retry não expirou (15s)
-    if (!this.sqsOnline && (now - this.lastOfflineCheck < 15000)) {
-      if (this.fallbackBroadcast) {
-        for (const evt of events) {
+    // 1. Despacha imediatamente via WebSocket local para latência zero e sincronização instantânea
+    if (this.fallbackBroadcast) {
+      for (const evt of events) {
+        try {
           this.fallbackBroadcast(roomId, evt);
+        } catch (bErr) {
+          console.error('[EventPublisher] Erro no broadcast local:', bErr);
         }
       }
+    }
+
+    const now = Date.now();
+    // Fast-path: se SQS estiver offline e o intervalo de retry não expirou (15s), pula tentativa do SQS
+    if (!this.sqsOnline && (now - this.lastOfflineCheck < 15000)) {
       return;
     }
 

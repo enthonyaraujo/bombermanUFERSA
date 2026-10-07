@@ -2,7 +2,7 @@ import { SQSClient, ReceiveMessageCommand, DeleteMessageBatchCommand } from '@aw
 import { config } from '../config/index.js';
 
 export class SqsConsumer {
-  constructor(webSocketManager, sqsClient = null, onEvent = null) {
+  constructor(webSocketManager, sqsClient = null, onEvent = null, isRecentlyPublished = null) {
     this.client = sqsClient || new SQSClient({
       region: config.aws.region,
       endpoint: config.aws.endpoint,
@@ -10,6 +10,7 @@ export class SqsConsumer {
     });
     this.wsManager = webSocketManager;
     this.onEvent = onEvent;
+    this.isRecentlyPublished = isRecentlyPublished;
     this.queueUrl = config.sqs.eventsQueueUrl;
     this.isRunning = false;
     this.sqsOnline = true;
@@ -60,8 +61,12 @@ export class SqsConsumer {
 
             if (roomId) {
               const evt = { eventId, type, payload };
-              // Repassa evento via WebSocket para todos os jogadores daquela sala
-              this.wsManager.broadcastToRoom(roomId, evt);
+              const alreadySent = this.isRecentlyPublished && eventId && this.isRecentlyPublished(eventId);
+
+              if (!alreadySent) {
+                // Repassa evento via WebSocket para todos os jogadores daquela sala
+                this.wsManager.broadcastToRoom(roomId, evt);
+              }
 
               if (this.onEvent) {
                 this.onEvent(roomId, evt);

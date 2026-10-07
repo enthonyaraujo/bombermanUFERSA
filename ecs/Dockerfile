@@ -16,5 +16,5 @@ ENV NODE_ENV=production
 
 EXPOSE 3000
 
-# Executa tanto o Backend Web quanto o Worker da Game Engine
-CMD ["npm", "run", "start:all"]
+# Executa o servidor unificado com WebSocket, Game Engine e AWS SQS
+CMD ["npm", "start"]
