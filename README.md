@@ -22,6 +22,29 @@ O objetivo central do projeto é exercitar os conceitos fundamentais de sistemas
 
 ---
 
+## Demonstração do Jogo (Prints)
+
+O projeto foi implantado e validado em ambiente de nuvem na AWS com Application Load Balancer público, contêineres ECS Fargate e mensageria assíncrona com AWS SQS FIFO para 4 jogadores simultâneos:
+
+### 1. Lobby Principal e Identificação em Nuvem
+Acesso ao lobby em tempo real com identificação pública da infraestrutura AWS ECS, equipe de Sistemas Distribuídos e listagem dinâmica de salas:
+- **Domínio ECS:** Identificação da infraestrutura pública no cabeçalho (`BOMBERMAN-ENTHONYARAUJO.US-EAST-1.ELB.AMAZONAWS.COM`).
+- **Equipe SD:** ENTHONY ARAUJO, DOUGLAS PATRICK, GUILHERME SILVA e GUILHERME GABRIEL.
+- **Lobby Dinâmico:** Atualização em tempo real das salas ativas com sistema de códigos Among Us (4 letras).
+
+![Lobby Principal](docs/prints/lobby.png)
+
+---
+
+### 2. Partida Multiplayer com 4 Jogadores Simultâneos
+Combate em tempo real na Arena do Sertão com 4 jogadores conectados simultaneamente via WebSockets e filas AWS SQS, com HUD informativo de recursos e vidas dos participantes:
+- **Jogadores na Arena:** `Enthony Araujo` (Vermelho), `Guilherme Ag` (Azul), `GuilhermeGabrie` (Verde) e `DougLinhas` (Amarelo).
+- **Mecânicas Ativas:** 4 robôs exploradores, blocos destrutíveis e indestrutíveis da Caatinga, estoque de bombas, alcance de explosão e notificações de rede em tempo real.
+
+![Partida Multiplayer com 4 Jogadores](docs/prints/game.png)
+
+---
+
 ## Funcionalidades
 
 - Autenticação simplificada por apelido (até 15 caracteres alfanuméricos).
@@ -130,6 +153,9 @@ avaliacao-06-07/
 │   ├── setup-queues.sh
 │   └── task-definition.json
 ├── docs/                      # Documentação dos requisitos e telas
+│   ├── prints/                # Registros visuais da aplicação
+│   │   ├── lobby.png          # Lobby principal e identificação em nuvem
+│   │   └── game.png           # Partida ativa com 4 jogadores simultâneos
 │   ├── ui-screens.md
 │   ├── avaliação.md
 │   └── jogo.md
